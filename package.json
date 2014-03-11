@@ -1,0 +1,33 @@
+{
+  "name": "restifizer",
+  "version": "0.0.1",
+  "description": "Restful service with mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vedi/restifizer.git"
+  },
+  "keywords": [
+    "node.js",
+    "rest",
+    "restfull",
+    "express",
+    "node",
+    "mongo",
+    "mongodb",
+    "mongoose",
+    "nosql"
+  ],
+  "dependencies": {
+    "seq": "*",
+    "lodash": "*",
+    "passport": "0.1.x",
+    "mongoose": "3.8.x",
+    "mmmagic": "*",
+  },
+  "author": "Fedor Shubin",
+  "license": "MIT"
+}
