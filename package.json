@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Restful service with mongodb",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "lodash": "*",
     "passport": "0.1.x",
     "mongoose": "3.8.x",
-    "mmmagic": "*",
+    "mmmagic": "*"
   },
   "author": "Fedor Shubin",
   "license": "MIT"
