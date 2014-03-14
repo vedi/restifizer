@@ -1,7 +1,9 @@
+var _ = require("lodash");
 var restful = require("./lib/restful");
 
 module.exports.Restifizer = Restifizer;
-module.exports.HTTP_STATUSES = require("./lib/utils").HTTP_STATUSES;
+var HTTP_STATUSES = require("./lib/utils").HTTP_STATUSES;
+module.exports.HTTP_STATUSES = HTTP_STATUSES;
 
 function Restifizer(app, options) {
   this.app = app;
@@ -11,21 +13,12 @@ function Restifizer(app, options) {
   }
 }
 
-Restifizer.prototype.createController = function (options) {
-  return restful.controller(options, this.restifizerOptions);
+Restifizer.prototype.createController = function (Controller) {
+  return new Controller(this.restifizerOptions);
 };
 
-Restifizer.prototype.createFileFieldController = function (options) {
-  return restful.fileFieldController(options, this.restifizerOptions);
-};
-
-Restifizer.prototype.addController = function (options) {
-  this.bind(this.createController(options));
-  return this;
-};
-
-Restifizer.prototype.addFileFieldController = function (options) {
-  this.bind(this.createFileFieldController(options));
+Restifizer.prototype.addController = function (Controller) {
+  this.bind(this.createController(Controller));
   return this;
 };
 
@@ -34,4 +27,5 @@ Restifizer.prototype.bind = function (controller) {
   return this;
 };
 
-
+Restifizer.Controller = restful.Controller;
+Restifizer.HTTP_STATUSES = HTTP_STATUSES;
