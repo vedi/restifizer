@@ -28,4 +28,5 @@ Restifizer.prototype.bind = function (controller) {
 };
 
 Restifizer.Controller = restful.Controller;
+Restifizer.FileFieldController = restful.FileFieldController;
 Restifizer.HTTP_STATUSES = HTTP_STATUSES;

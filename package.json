@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Restful service with mongodb",
   "main": "index.js",
   "scripts": {
@@ -26,8 +26,22 @@
     "lodash": "*",
     "passport": "0.1.x",
     "mongoose": "3.8.x",
-    "mmmagic": "*"
+    "mmmagic": "0.3.x"
   },
-  "author": "Fedor Shubin",
-  "license": "MIT"
+  "author": {
+    "name": "Fedor Shubin"
+  },
+  "license": "MIT",
+  "readme": "restifizer\n==========\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/vedi/restifizer/issues"
+  },
+  "homepage": "https://github.com/vedi/restifizer",
+  "_id": "restifizer@0.0.3",
+  "dist": {
+    "shasum": "7c5aaf32c9a539a04f668975a235ead6556578da"
+  },
+  "_from": "restifizer@0.0.3",
+  "_resolved": "https://registry.npmjs.org/restifizer/-/restifizer-0.0.3.tgz"
 }
