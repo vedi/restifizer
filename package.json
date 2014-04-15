@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Restful service with mongodb",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,6 @@
     "nosql"
   ],
   "dependencies": {
-    "seq": "*",
     "lodash": "*",
     "passport": "0.1.x",
     "mongoose": "3.8.x",
@@ -39,10 +38,10 @@
     "url": "https://github.com/vedi/restifizer/issues"
   },
   "homepage": "https://github.com/vedi/restifizer",
-  "_id": "restifizer@0.0.6",
+  "_id": "restifizer@0.0.16",
   "dist": {
-    "shasum": "96eb76b4e734583dd452de48c71a02faaa3da1fd"
+    "shasum": "5a3369bbce07a3f320186317f0e2045a2404a94d"
   },
-  "_from": "restifizer@0.0.6",
-  "_resolved": "https://registry.npmjs.org/restifizer/-/restifizer-0.0.6.tgz"
+  "_from": "restifizer@0.0.16",
+  "_resolved": "https://registry.npmjs.org/restifizer/-/restifizer-0.0.16.tgz"
 }
