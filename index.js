@@ -2,12 +2,7 @@ var _         = require("lodash");
 var restful   = require("./lib/restful");
 var utils     = require("./lib/utils");
 
-var HTTP_STATUSES = utils.HTTP_STATUSES;
-var HttpError     = utils.HttpError;
-
 module.exports.Restifizer     = Restifizer;
-module.exports.HTTP_STATUSES  = HTTP_STATUSES;
-module.exports.HttpError      = HttpError;
 
 function Restifizer(app, options) {
   this.app = app;
@@ -33,5 +28,3 @@ Restifizer.prototype.bind = function (controller) {
 
 Restifizer.Controller = restful.Controller;
 Restifizer.FileFieldController = restful.FileFieldController;
-Restifizer.HTTP_STATUSES = HTTP_STATUSES;
-Restifizer.HttpError = HttpError;
