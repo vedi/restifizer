@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "Restful service with mongodb",
   "main": "index.js",
   "scripts": {
@@ -22,11 +22,12 @@
     "nosql"
   ],
   "dependencies": {
-    "lodash": "*",
+    "lodash": "~2.4.1",
+    "http-statuses": "~0.1.x",
     "passport": "0.1.x",
     "mongoose": "3.8.x",
-    "mmmagic": "0.3.x",
-    "q": "1.0.1"
+    "mmmagic": "~0.3.6",
+    "q": "~1.0.1"
   },
   "author": {
     "name": "Fedor Shubin"
@@ -38,10 +39,10 @@
     "url": "https://github.com/vedi/restifizer/issues"
   },
   "homepage": "https://github.com/vedi/restifizer",
-  "_id": "restifizer@0.0.16",
+  "_id": "restifizer@0.0.24",
   "dist": {
-    "shasum": "5a3369bbce07a3f320186317f0e2045a2404a94d"
+    "shasum": "1297c801b1c7ea120e29ddf9a347afc4201bcdc6"
   },
-  "_from": "restifizer@0.0.16",
-  "_resolved": "https://registry.npmjs.org/restifizer/-/restifizer-0.0.16.tgz"
+  "_from": "restifizer@0.0.24",
+  "_resolved": "https://registry.npmjs.org/restifizer/-/restifizer-0.0.24.tgz"
 }
