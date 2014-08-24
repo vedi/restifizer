@@ -1,13 +1,14 @@
-var _         = require("lodash");
-var restful   = require("./lib/restful");
-var utils     = require("./lib/utils");
+var
+  _ = require("lodash"),
+  restful = require("./lib/restful"),
+  utils = require("./lib/utils");
 
-module.exports.Restifizer     = Restifizer;
+module.exports.Restifizer = Restifizer;
 
 function Restifizer(app, options) {
   this.app = app;
   this.restifizerOptions = options || {};
-  if (this.restifizerOptions.config) {
+  if (!this.restifizerOptions.config) {
     this.restifizerOptions.config = {defaultPerPage: 25, maxPerPage: 100, redisKeyPrefix: "trigger"};
   }
 }
