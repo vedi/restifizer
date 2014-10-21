@@ -1,5 +1,7 @@
 > We are working hard to create and imrove documentation. Some sections still are blank. But if you have exact questions or ideas how we can improve documentation, create a ticket with it here: https://github.com/vedi/restifizer/issues
 
+> Simple example project available at https://github.com/vedi/restifizer-example.
+
 > Any feedback is appreciated. 
 
 Restifizer
