@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Restful service with mongodb",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,6 @@
     "name": "Fedor Shubin"
   },
   "license": "MIT",
-  "readme": "restifizer\n==========\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/vedi/restifizer/issues"
