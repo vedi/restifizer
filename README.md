@@ -1,6 +1,5 @@
 [![NPM](https://nodei.co/npm/restifizer.png?compact=true)](https://npmjs.org/package/restifizer)
 
-
 > We are working hard to create and improve documentation. Some sections still are blank. But if you have exact questions or ideas how we can improve documentation, create a ticket with it here: https://github.com/vedi/restifizer/issues
 
 > Simple example project is available at https://github.com/vedi/restifizer-example.
@@ -315,9 +314,35 @@ So, in this example we put `populate` to our query pipe:
     }
 ```
 
+### Handlers
+
+#### beforeAssignFields
+
+`beforeAssignFields: function (dest, source, req, callback)`
+
+If it's defined, it runs immediately before `assignFields`, and has the same params.
+You can use it to define what the params will be set.
+
+#### afterSave
+
+`afterSave: function (doc, req, res, callback)`
+
+If it's defined, it runs immediately after `saveDocument`, and has the same params.
+
+#### beforeDelete
+
+`beforeDelete: function (doc, req, callback)`
+
+If it's defined, it runs immediately before removing the document.
+
+
 ### Methods
 
-There is another way to cusomize the behaviour of your controller. You can override existing `restifizer` methods. 
+#### getContext
+
+`getContext: function (req)`
+
+Returns context of the current request. Context os a place, when you can save any your variable with request's lifecycle.
 
 #### prepareData
 
