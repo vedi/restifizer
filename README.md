@@ -323,6 +323,12 @@ So, in this example we put `populate` to our query pipe:
 If it's defined, it runs immediately before `assignFields`, and has the same params.
 You can use it to define what the params will be set.
 
+#### beforeSave
+
+`beforeSave: function (doc, req, res, callback)`
+
+Handler, called when you change existing instance of your resource after all assignments are already done, but immediately before saving it to your database
+
 #### afterSave
 
 `afterSave: function (doc, req, res, callback)`
@@ -405,12 +411,6 @@ var YourController = Restifizer.Controller.extend({
 
 Creates mongoose document. It's called when you create new instance of your resource after all assignments are already done,
 but immediately before saving it to your database.
-
-#### updateDocument
-
-`updateDocument: function (doc, req, res, callback)`
-
-Handler, called when you change existing instance of your resource after all assignments are already done, but immediately before saving it to your database
 
 #### saveDocument
 
