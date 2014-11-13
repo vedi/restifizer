@@ -327,7 +327,7 @@ You can use it to define what the params will be set.
 
 `beforeSave: function (doc, req, res, callback)`
 
-Handler, called when you change existing instance of your resource after all assignments are already done, but immediately before saving it to your database
+Handler, called when you create new resource or change existing instance of your resource after all assignments are already done, but immediately before saving it to your database
 
 #### afterSave
 
