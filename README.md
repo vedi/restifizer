@@ -214,6 +214,16 @@ provided value of `owner`.
 By default all the fields you defined in your model schema (without fields with name starting from "__") are available in your resource.
 Providing this params are you able exclude some fields from the resource, or add new calculated fields.
 
+#### defaultFilter
+
+With this param you can specify default `filter` value for your controller.
+
+#### orderBy
+
+With this param you can specify default `orderBy` value for your controller.
+For example:
+`orderBy: {date: -1}`
+
 #### q-search
 
 Q-search allows to search data without specifying exact fields of search. Just specify in your controller searchable fields:
@@ -316,6 +326,18 @@ So, in this example we put `populate` to our query pipe:
 
 ### Handlers
 
+#### prepareData
+
+`prepareData: function (req, res, callback)`
+
+Prepares data to instantinate new document.
+It's a point you can specify defaults for your resource when `restifizer` creates it. `Callback` reseives 2 params:
+ * err - error, or null if there is no error happened,
+ * data - object containg default values of resource fields.
+
+If you do not specify the handler, `restifizer` uses `{}` to init the object.
+
+
 #### beforeAssignFields
 
 `beforeAssignFields: function (dest, source, req, callback)`
@@ -349,17 +371,6 @@ If it's defined, it runs immediately before removing the document.
 `getContext: function (req)`
 
 Returns context of the current request. Context os a place, when you can save any your variable with request's lifecycle.
-
-#### prepareData
-
-`prepareData: function (req, res, callback)`
-
-Prepares data to instantinate new document.
-It's a point you can specify defaults for your resource when `restifizer` creates it. `Callback` reseives 2 params:
- * err - error, or null if there is no error happened,
- * data - object containg default values of resource fields.
-
-Default implementation uses empty data object (`{}`).
 
 #### assignFields
 
