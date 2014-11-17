@@ -449,6 +449,9 @@ It's a prefix you use in the trigger engine. Default value is `trigger`.
 
 TBD
 
+### supportedMethod: 'post',
+### supportedMethods: null,
+
 ### converter
 
 TBD
