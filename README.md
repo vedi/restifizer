@@ -449,7 +449,7 @@ It's a prefix you use in the trigger engine. Default value is `trigger`.
 
 TBD
 
-### supportedMethod: 'post',
+### supportedMethod: 'put',
 ### supportedMethods: null,
 
 ### converter
