@@ -214,6 +214,10 @@ provided value of `owner`.
 By default all the fields you defined in your model schema (without fields with name starting from "__") are available in your resource.
 Providing this params are you able exclude some fields from the resource, or add new calculated fields.
 
+#### idField
+
+Name of id field. By default: '_id'. This value is used in route params for selectOne, update, partialUpdate, delete.
+
 #### defaultFilter
 
 With this param you can specify default `filter` value for your controller.
