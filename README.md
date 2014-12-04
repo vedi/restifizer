@@ -238,6 +238,18 @@ qFields: ["login", "firstName", "lastName"]
 
 and set `q` param of your GET request (see `q` for details).
 
+### arrayMethods
+
+Supported methods with arrays. Default value: ['$addToSet', '$pop', '$push', '$pull'].
+It's relevant to partialUpdate (PATCH) only. You can specify such methods in order to manipulate array fields of your resourse.
+
+The params and implemenations of these methods relate to the same methods in MongoDB:
+* `$addToSet` - http://docs.mongodb.org/manual/reference/operator/update/addToSet/#up._S_addToSet,
+* `$pop` - http://docs.mongodb.org/manual/reference/operator/update/pop/#up._S_pop,
+* `$push` - http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push,
+* `$pull` - http://docs.mongodb.org/manual/reference/operator/update/pull/#up._S_pull.
+
+
 ### Options
 
 #### Option inheritence
@@ -367,6 +379,11 @@ If it's defined, it runs immediately after `saveDocument`, and has the same para
 
 If it's defined, it runs immediately before removing the document.
 
+#### beforeArrayMethod
+
+`beforeArrayMethod(dest, methodBody, methodName, fieldName, req)`
+
+If it's defined, it runs immediately before proceeding of array methods.
 
 ### Methods
 
