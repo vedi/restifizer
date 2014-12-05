@@ -179,6 +179,14 @@ It performs aggregation of the resource records. See http://docs.mongodb.org/man
 
 TBD
 
+## Response status
+
+* 200 OK - after any successful request except POST.
+* 201 Created - after successful POST.
+* 404 Not Found - related resource has not been found for GET (by id), PUT, PATCH, DELETE.
+* 400 Bad Request - request params cannot be parsed, or validation failed, or unique checking failed.
+* 409 Conflict - mongoose VersionError happened.
+
 ## Paging
 
 It relates to getting the list of resources. Every such response is limited with paging rules:
@@ -190,7 +198,7 @@ It relates to getting the list of resources. Every such response is limited with
 
 Controllers are the way to provide needed configuration for your resource and to customize its behaviour.
  
-### Fields
+### Properties
 
 #### ModelClass
 
@@ -466,7 +474,7 @@ This value restricts maximum value of `per_page` supported with your app. Defaul
 
 It's a prefix you use in the trigger engine. Default value is `trigger`.
 
-## Files
+## FileControllers
 
 TBD
 
