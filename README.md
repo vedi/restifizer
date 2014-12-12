@@ -381,6 +381,21 @@ Handler, called when you create new resource or change existing instance of your
 
 If it's defined, it runs immediately after `saveDocument`, and has the same params.
 
+#### afterChange
+
+`afterChange: function (doc, req, res, callback)`
+
+Very similar to `afterSave`, it calls immediately after it in inserts and updates, but it runs after deletes as well.
+It can be a good point to integrate your kinf of `triggerEngine`. For instance, you can define something like that in
+a base controller class of your application:
+```
+  afterChange: function (doc, req, res, callback) {
+    redisClient.publish(this.ModelClass.modelName + '.' + doc.id, req.restifizer.action);
+    return callback(null, doc);
+  }
+```
+After that you will be able to subscribe to those events and handle them in flexible and scalable way.
+
 #### beforeDelete
 
 `beforeDelete: function (doc, req, callback)`
@@ -470,10 +485,6 @@ This value is used in all `select` requests if no `per_page` has been provided. 
 
 This value restricts maximum value of `per_page` supported with your app. Default value is `100`.
 
-#### redisKeyPrefix
-
-It's a prefix you use in the trigger engine. Default value is `trigger`.
-
 ## FileControllers
 
 TBD
@@ -482,10 +493,6 @@ TBD
 ### supportedMethods: null,
 
 ### converter
-
-TBD
-
-## Trigger engine
 
 TBD
 

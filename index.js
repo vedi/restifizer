@@ -9,7 +9,7 @@ function Restifizer(app, options) {
   this.app = app;
   this.restifizerOptions = options || {};
   if (!this.restifizerOptions.config) {
-    this.restifizerOptions.config = {defaultPerPage: 25, maxPerPage: 100, redisKeyPrefix: "trigger"};
+    this.restifizerOptions.config = {defaultPerPage: 25, maxPerPage: 100};
   }
 }
 
