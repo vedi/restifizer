@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Restful service with mongodb",
   "main": "index.js",
   "scripts": {
