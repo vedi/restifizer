@@ -44,7 +44,7 @@ Restifizer supports following methods:
 
 ### select
 
-> I use `httpie` (https://github.com/jakubroztocil/httpie) as a command line tool to test the servers. You can use any, but all the examples are created with syntax of `httpie`. Anyway it's recognizable.
+> I use `httpie` (https://github.com/jakubroztocil/httpie) as a command line tool to test the servers. You can use any, but all the examples were created with syntax of `httpie`. Anyway it's recognizable.
 
 Example:
 
@@ -290,11 +290,13 @@ var YourController = Restifizer.Controller.extend({
   }
 ```
 
+### Handlers
+
 #### pre
 
 `pre: function (req, res, callback)`
 
-`pre` is a preprocessor that is executed at the begining before any other logic runs. It's a good point to check 
+`pre` is a preprocessor that is executed at the begining before any other logic runs. It's a good point to check
 preconditions of your request. For example check if the request is executed by Admin:
 ```
       pre: function (req, res, callback) {
@@ -310,14 +312,14 @@ preconditions of your request. For example check if the request is executed by A
 
 `collectionPost: function (collection, req, res, callback)`
 
-When `select` or `aggregate` return any collection from db, this collection is passed through this postprocessor. 
+When `select` or `aggregate` return any collection from db, this collection is passed through this postprocessor.
 It's a good point if you want to manipulate with the set of items of the collection, but not with items by themselves.
 
 #### post
 
 `post: function (resource, req, res, callback)`
 
-`post` is postprocessor. It runs immediately before a resource is sent to an user. 
+`post` is postprocessor. It runs immediately before a resource is sent to an user.
 At this point you can change the resource by itself. For instance, you can fill calculated fields here:
 ```
   defaultOptions: function (resource, req, res, callback) {
@@ -336,7 +338,7 @@ At this point you can change the resource by itself. For instance, you can fill 
 You can use `queryPipe` if you need to call additional methods at `mongoose` `query` (http://mongoosejs.com/docs/queries.html).
 This method is called after all `restifizer` calls are done, but immediately before `exec`.
 
-Draw your attention, this method is called in 2 different semantics: 
+Draw your attention, this method is called in 2 different semantics:
 * in selects - in this case we expect you call `callback`,
 * in IUD-methods - in this case we expect you directly return `query`.
 In order to make your method workable in both semantics use the way from example bellow (return and call `callback` at the same line).
@@ -347,8 +349,6 @@ So, in this example we put `populate` to our query pipe:
       return query.populate("fieldToPopulate", callback);
     }
 ```
-
-### Handlers
 
 #### prepareData
 
