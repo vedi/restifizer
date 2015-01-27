@@ -1,6 +1,6 @@
 var
   _ = require("lodash"),
-  restful = require("./lib/restifizer"),
+  restifizer = require("./lib/restifizer"),
   utils = require("./lib/utils");
 
 module.exports.Restifizer = Restifizer;
