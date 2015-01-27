@@ -1,6 +1,6 @@
 var
   _ = require("lodash"),
-  restful = require("./lib/restful"),
+  restful = require("./lib/restifizer"),
   utils = require("./lib/utils");
 
 module.exports.Restifizer = Restifizer;
@@ -27,5 +27,5 @@ Restifizer.prototype.bind = function (controller) {
   return this;
 };
 
-Restifizer.Controller = restful.Controller;
-Restifizer.FileFieldController = restful.FileFieldController;
+Restifizer.Controller = restifizer.Controller;
+Restifizer.FileFieldController = restifizer.FileFieldController;
