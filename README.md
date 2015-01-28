@@ -6,6 +6,8 @@
 
 > Full functional seed-project based on MEAN.JS (http://meanjs.org/) is available at https://github.com/vedi/restifizer-mean.js.
 
+> If you are looking for Restifizer SDK for Unity3d, you can find it here: https://github.com/vedi/restifizer-unity3d
+
 > Any feedback is appreciated. 
 
 Restifizer
