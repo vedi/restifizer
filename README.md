@@ -4,12 +4,14 @@
 
 > Simple example project is available at https://github.com/vedi/restifizer-example.
 
+> Full functional seed-project based on MEAN.JS (http://meanjs.org/) is available at https://github.com/vedi/restifizer-mean.js.
+
 > Any feedback is appreciated. 
 
 Restifizer
 ==========
 
-Restifizer - it's a way to significantly simplify creation of full-functional RESTful services, using MongoDB as database.
+Restifizer - it's a way to significantly simplify creation of full-functional RESTful services, using MongoDB as a database.
 
 The key feature of the module - it's very coupled to mongoose (MongoDB module) 
 as result it allows to make prototyping of the services as soon as it's possible. 
