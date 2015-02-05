@@ -8,7 +8,9 @@
 
 > If you are looking for Restifizer SDK for Unity3d, you can find it here: https://github.com/vedi/restifizer-unity3d
 
-> Any feedback is appreciated. 
+> FileController was extracted to a separatee module: https://github.com/vedi/restifizer-files
+
+> Any feedback is appreciated.
 
 Restifizer
 ==========
@@ -27,10 +29,6 @@ There is a list of some of these features:
 > Such features on one hand allow your service to be developed extremely fast, but on other hand you always should remember, 
 you need to solve all possible performance imapacts before comming production. 
 For example you sould allow filtering by indexed fields only. By default it's allowed for each ones.     
-
-*Restifizer* supports 2 kinds of data: 
-  * resources - when client pass text data and get json back,
-  * files - when uploading/downloading of files. 
 
 ## Resources
 
@@ -488,15 +486,4 @@ This value is used in all `select` requests if no `per_page` has been provided. 
 #### maxPerPage
 
 This value restricts maximum value of `per_page` supported with your app. Default value is `100`.
-
-## FileControllers
-
-TBD
-
-### supportedMethod: 'put',
-### supportedMethods: null,
-
-### converter
-
-TBD
 

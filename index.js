@@ -1,9 +1,7 @@
+'use strict';
 var
-  _ = require("lodash"),
-  restifizer = require("./lib/restifizer"),
-  utils = require("./lib/utils");
+  RestifizerController = require("./lib/restifizer");
 
-module.exports.Restifizer = Restifizer;
 
 function Restifizer(app, options) {
   this.app = app;
@@ -27,5 +25,6 @@ Restifizer.prototype.bind = function (controller) {
   return this;
 };
 
-Restifizer.Controller = restifizer.Controller;
-Restifizer.FileFieldController = restifizer.FileFieldController;
+Restifizer.Controller = RestifizerController;
+
+module.exports = Restifizer;
