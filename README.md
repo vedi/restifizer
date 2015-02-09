@@ -356,10 +356,10 @@ So, in this example we put `populate` to our query pipe:
 
 `prepareData: function (req, res, callback)`
 
-Prepares data to instantinate new document.
+Prepares data to create new document.
 It's a point you can specify defaults for your resource when `restifizer` creates it. `Callback` reseives 2 params:
  * err - error, or null if there is no error happened,
- * data - object containg default values of resource fields.
+ * data - object containing default values of resource fields.
 
 If you do not specify the handler, `restifizer` uses `{}` to init the object.
 
