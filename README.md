@@ -42,8 +42,8 @@ In the best traditions of REST-genre the most of the actions with resource can b
 Restifizer supports following methods:
     * GET - selects a set of resources or a resource if a key is specified (see `select`, `selectOne`),
     * POST - saves new instance of resource on the server (see `insert`),
-    * PUT - replaces existing instance of resource with data provided in request (see `update`),
-    * PATCH - updates fields of existing instance of resource with values provided in request (see `partialUpdate`).
+    * PUT - replaces existing instance of resource with data provided in request (see `replace`),
+    * PATCH - updates fields of existing instance of resource with values provided in request (see `update`).
     * DELETE - removes existing instance of resource from the server (see 'delete'). 
 
 ### select
@@ -127,7 +127,7 @@ http POST 'localhost:3000/api/users' username=test password=pass
 It allows to add new resources to the server. You can provide field values in body with json, or as form params. 
 
 
-### update
+### replace
 
 ```
 http PUT 'localhost:3000/api/users/<id>' username=test password=pass
@@ -136,7 +136,7 @@ http PUT 'localhost:3000/api/users/<id>' username=test password=pass
 It completely replaces resource with provided `id` with new one specifided in the request. You can provide field values in body with json, or as form params. 
 Be careful if no value for a field provided, it will be set to undefined. 
 
-### partialUpdate
+### update
 
 ```
 http PATCH 'localhost:3000/api/users/<id>' password=pass
@@ -228,7 +228,7 @@ Providing this params are you able exclude some fields from the resource, or add
 
 #### idField
 
-Name of id field. By default: '_id'. This value is used in route params for selectOne, update, partialUpdate, delete.
+Name of id field. By default: '_id'. This value is used in route params for selectOne, replace, update, delete.
 
 #### defaultFilter
 
@@ -253,41 +253,42 @@ and set `q` param of your GET request (see `q` for details).
 ### arrayMethods
 
 Supported methods with arrays. Default value: ['$addToSet', '$pop', '$push', '$pull'].
-It's relevant to partialUpdate (PATCH) only. You can specify such methods in order to manipulate array fields of your resourse.
+It's relevant to update (PATCH) only. You can specify such methods in order to manipulate array fields of your resourse.
 
-The params and implemenations of these methods relate to the same methods in MongoDB:
+The params and implementations of these methods relate to the same methods in MongoDB:
 * `$addToSet` - http://docs.mongodb.org/manual/reference/operator/update/addToSet/#up._S_addToSet,
 * `$pop` - http://docs.mongodb.org/manual/reference/operator/update/pop/#up._S_pop,
 * `$push` - http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push,
 * `$pull` - http://docs.mongodb.org/manual/reference/operator/update/pull/#up._S_pull.
 
 
-### Options
+### Action Options
 
 #### Option inheritence
 
 You are able to customize the behaviour of your controllers very much. And we did all our best to make this process as simple as it's posible.
-That's why you're able to specify option in one of the methods, and `restifizer` will apply inheritence rules to the options of other methods.
+That's why you're able to specify option in one of the methods, and `restifizer` will apply inheritence rules to the  of other methods.
   
 There are following rules:
 ```
-defaultOptions ->
-    selectOptions ->
-        selectOneOptions
-    insertOptions ->
-        updateOptions ->
-            partialUpdateOptions
-            deleteOptions
-    countOptions
-    aggregateOptions
-    
+default ->
+    select ->
+        selectOne
+    insert ->
+        update ->
+            replace
+            delete
+    count
+
 ```
 
-For example if you want to define `pre` processor for insert, update, partialUpdate, delete that's enough to define it in your `insertOptions`: 
+> TODO: Change example
+
+For example if you want to define `pre` processor for insert, update, partialUpdate, delete that's enough to define it in your `insert`:
 ```
 var YourController = Restifizer.Controller.extend({
   ...
-  insertOptions: {
+  insert: {
     pre: function (req, res, next) {
       ...
     }
@@ -300,23 +301,23 @@ var YourController = Restifizer.Controller.extend({
 
 `pre: function (req, res, callback)`
 
-`pre` is a preprocessor that is executed at the begining before any other logic runs. It's a good point to check
+`pre` is a preprocessor that is executed at the beginning before any other logic runs. It's a good point to check
 preconditions of your request. For example check if the request is executed by Admin:
 ```
-      pre: function (req, res, callback) {
-        // not admin
-        if (!this.isAdmin(req)) {
-          return callback(HTTP_STATUSES.FORBIDDEN.createError());
-        }
-        callback();
-      }
+  pre: function (req, res, callback) {
+    // not admin
+    if (!this.isAdmin(req)) {
+      return callback(HTTP_STATUSES.FORBIDDEN.createError());
+    }
+    callback();
+  }
 ```
 
 #### collectionPost
 
 `collectionPost: function (collection, req, res, callback)`
 
-When `select` or `aggregate` return any collection from db, this collection is passed through this postprocessor.
+When `select` returns any collection from db, this collection is passed through this postprocessor.
 It's a good point if you want to manipulate with the set of items of the collection, but not with items by themselves.
 
 #### post
@@ -326,7 +327,7 @@ It's a good point if you want to manipulate with the set of items of the collect
 `post` is postprocessor. It runs immediately before a resource is sent to an user.
 At this point you can change the resource by itself. For instance, you can fill calculated fields here:
 ```
-  defaultOptions: function (resource, req, res, callback) {
+  post: function (resource, req, res, callback) {
     if (resource.icon) {
       resource.icon_url =
         req.protocol + "://" + req.get('host') + '/api/resource/' + resource._id + '/icon';
