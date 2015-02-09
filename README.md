@@ -1,5 +1,7 @@
 [![NPM](https://nodei.co/npm/restifizer.png?compact=true)](https://npmjs.org/package/restifizer)
 
+> HANDS UP!!! We are working to make Restifizer database-agnostic. We extracted Mongoose Data Source: https://github.com/vedi/restifizer-mongoose-ds. And make it stable. If you want to get the stable version with the old functionality use v0.3.1.
+
 > We are working hard to create and improve documentation. Some sections still are blank. But if you have exact questions or ideas how we can improve documentation, create a ticket with it here: https://github.com/vedi/restifizer/issues
 
 > Simple example project is available at https://github.com/vedi/restifizer-example.
@@ -8,7 +10,7 @@
 
 > If you are looking for Restifizer SDK for Unity3d, you can find it here: https://github.com/vedi/restifizer-unity3d
 
-> FileController was extracted to a separatee module: https://github.com/vedi/restifizer-files
+> FileController was extracted to a separate module: https://github.com/vedi/restifizer-files
 
 > Any feedback is appreciated.
 
@@ -27,8 +29,8 @@ There is a list of some of these features:
  * data population - you can easily define what the additional data should fetched and populated (JOIN) in your resource.
 
 > Such features on one hand allow your service to be developed extremely fast, but on other hand you always should remember, 
-you need to solve all possible performance imapacts before comming production. 
-For example you sould allow filtering by indexed fields only. By default it's allowed for each ones.     
+you need to solve all possible performance impacts before coming production.
+For example you should allow filtering by indexed fields only. By default it's allowed for each ones.
 
 ## Resources
 
