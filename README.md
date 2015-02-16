@@ -391,7 +391,7 @@ If it's defined, it runs immediately after `saveDocument`, and has the same para
 `afterChange: function (doc, req, res, callback)`
 
 Very similar to `afterSave`, it calls immediately after it in inserts and updates, but it runs after deletes as well.
-It can be a good point to integrate your kinf of `triggerEngine`. For instance, you can define something like that in
+It can be a good point to integrate your kind of `triggerEngine`. For instance, you can define something like that in
 a base controller class of your application:
 ```
   afterChange: function (doc, req, res, callback) {
