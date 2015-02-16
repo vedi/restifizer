@@ -264,7 +264,7 @@ The params and implementations of these methods relate to the same methods in Mo
 
 ### Action Options
 
-#### Option inheritence
+#### Option inheritance
 
 You are able to customize the behaviour of your controllers very much. And we did all our best to make this process as simple as it's posible.
 That's why you're able to specify option in one of the methods, and `restifizer` will apply inheritence rules to the  of other methods.
@@ -412,6 +412,14 @@ If it's defined, it runs immediately before removing the document.
 `beforeArrayMethod(dest, methodBody, methodName, fieldName, req)`
 
 If it's defined, it runs immediately before proceeding of array methods.
+
+#### contextFactory
+
+It's used to create context, if it's defined. Otherwise, `{}` used.
+
+#### parseError
+
+Here you can specify a way, how exceptions will be converted to response.
 
 ### Methods
 
