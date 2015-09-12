@@ -65,7 +65,7 @@ of `maxPageSize` with all available fields.
 
 It's json value containing any valid mongo db query. See http://docs.mongodb.org/manual/reference/glossary/#term-query for details. 
 Example: 
-{"sex": "M", age: { $gt: 18 } }}
+{"sex": "M", "age": { "$gt": 18 }}
 
 ###### regexp values
 
