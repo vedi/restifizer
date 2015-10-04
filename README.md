@@ -498,3 +498,20 @@ This value is used in all `select` requests if no `per_page` has been provided. 
 
 This value restricts maximum value of `per_page` supported with your app. Default value is `100`.
 
+### Testing
+
+Run MongoDB server on the local machine on port 27017 or change connection string for test application (path '`<restifizerDir>/test/lib/app/config/index.js`').
+Then go to the `test` directory of the project and run test application:
+```bash
+$ cd /pathToRestifizer/test
+$ node ./lib/app/server
+```
+Run Cucumber (https://cucumber.io/). If you installed cucumber.js globally, you may run it with:
+```bash
+$ cucumber.js
+```
+If you installed Cucumber locally or with npm install --save-dev, you'll need to specify the path to the binary:
+```bash
+$ ../node_modules/.bin/cucumber.js
+```
+**Note to Windows users:** invoke Cucumber.js with cucumber-js instead of cucumber.js. The latter is causing the operating system to invoke JScript instead of Node.js, because of the so-called file extension.
