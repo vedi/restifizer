@@ -22,7 +22,7 @@
     "nosql"
   ],
   "dependencies": {
-    "bluebird": "~2.8.0",
+    "bluebird": "^2.9.13",
     "http-statuses": "~0.1.x",
     "lodash": "~3.10.1"
   },
@@ -42,5 +42,13 @@
   "_from": "restifizer@^0.2.5",
   "_resolved": "https://registry.npmjs.org/restifizer/-/restifizer-0.0.24.tgz",
   "gitHead": "852ab862040ac55560b3695b26b3c66b32ca0733",
-  "_shasum": "8561703b4cfbca3da757867721d78b2594654639"
+  "_shasum": "8561703b4cfbca3da757867721d78b2594654639",
+  "devDependencies": {
+    "body-parser": "~1.9.0",
+    "chai": "^3.2.0",
+    "cucumber": "^0.6.0",
+    "express": "~4.9.5",
+    "request-json": "^0.5.3",
+    "restifizer-mongoose-ds": "^0.0.5"
+  }
 }
