@@ -12,7 +12,7 @@ module.exports = function () {
             var path = '/api/' + resourceName;
 
             if (isTargeted) {
-                path += '/' + _this.data._id;
+                path += '/' + (_this.data._id ? _this.data._id : _this.data.id);
             }
             switch (method) {
                 case 'get':
@@ -77,6 +77,10 @@ module.exports = function () {
     });
     this.Then(/^I get "([^"]*)" in response$/, function (key, callback) {
         expect(this.body[key]).not.to.be.undefined;
+        callback();
+    });
+    this.Then(/^I get not "([^"]*)" in response$/, function (key, callback) {
+        expect(this.body[key]).to.be.undefined;
         callback();
     });
     this.Then(/^I get an array with length equals to ([\d]*) in response$/, function (value, callback) {

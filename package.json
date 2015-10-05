@@ -4,9 +4,12 @@
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-app | npm run test-cucumber",
+    "test": "npm run test-migrate && npm run test-app | npm run test-cucumber && npm run test-migrate-undo",
+    "test-clear": "npm run test-migrate-undo",
     "test-app": "node ./test/lib/app/server.js",
-    "test-cucumber": "cd ./test && cucumber.js"
+    "test-cucumber": "cd ./test && echo \"Wait 5 seconds (test server starting)...\" && sleep 5 && cucumber.js",
+    "test-migrate": "cd ./test/lib/app/ && ../../../node_modules/.bin/sequelize db:migrate",
+    "test-migrate-undo": "cd ./test/lib/app/ && ../../../node_modules/.bin/sequelize db:migrate:undo"
   },
   "repository": {
     "type": "git",
@@ -50,7 +53,12 @@
     "chai": "^3.2.0",
     "cucumber": "^0.6.0",
     "express": "~4.9.5",
+    "mongoose": "^4.1.9",
+    "mysql": "^2.9.0",
     "request-json": "^0.5.3",
-    "restifizer-mongoose-ds": "^0.0.5"
+    "restifizer-mongoose-ds": "^0.0.5",
+    "restifizer-sequelize-ds": "https://github.com/igbasov/restifizer-sequelize-ds.git",
+    "sequelize": "^3.11.0",
+    "sequelize-cli": "^1.9.1"
   }
 }

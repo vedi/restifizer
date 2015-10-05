@@ -500,8 +500,14 @@ This value restricts maximum value of `per_page` supported with your app. Defaul
 
 ### Testing
 
-Run MongoDB server on the local machine on port 27017 or change connection string for test application (path '`<restifizerDir>/test/lib/app/config/index.js`').
+Run MongoDB server on the local machine on port 27017 or change connection string for test application (path '`<restifizerDir>/test/lib/app/config/index.js`'). 
+Create `restifizerTest` database at MySQL server and change settings for `sequelize` migration (path `'<restifizerDir>/test/lib/app/config/config.json'`).
+
 Then run
 ```bash
 $ npm test
+```
+And to undo migration execute
+```bash
+$ npm run test-clear
 ```

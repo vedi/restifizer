@@ -21,7 +21,9 @@ mongoose.connect(config.mongoose.connectionString, function (err) {
 
 	var restifizer = new Restifizer(app, {});
 	restifizer.addController(require('./controllers/employee'));
+	restifizer.addController(require('./controllers/contact'));
 
 	var server = http.Server(app);
 	server.listen(config.express.port);
+	console.log('Test app server is listening on port ', config.express.port);
 });

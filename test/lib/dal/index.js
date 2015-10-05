@@ -36,5 +36,34 @@ module.exports = {
 		updateForEmployee: {
 			'name': 'Jane'
 		}
+	},
+	mysql: {
+		testContact: {
+			'id': 1,
+			'username': 'ivansquared@mail.com',
+			'name': 'Ivan',
+			'lastName': 'Ivanov'
+		},
+		additionalTestContact: {
+			'id': 2,
+			'username': 'john@doe.com',
+			'name': 'John',
+			'lastName': 'Doe'
+		},
+		replaceContact: {
+			'name': 'Vanyok',
+			'lastName': 'Ivanoff'
+		},
+		updateForContact: {
+			'name': 'Jane'
+		},
+		cases: {
+			q: 'q=Doe',
+			fields: 'fields=name,lastName',
+			filter: 'filter={"name":{"$like":"John"}}',
+			per_page: 'perPage=1',
+			page: 'page=2&perPage=1',
+			orderBy: 'orderBy={"name": -1}'
+		}
 	}
 };
