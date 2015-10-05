@@ -4,7 +4,9 @@
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test-app | npm run test-cucumber",
+    "test-app": "node ./test/lib/app/server.js",
+    "test-cucumber": "cd ./test && cucumber.js"
   },
   "repository": {
     "type": "git",
