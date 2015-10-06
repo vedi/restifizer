@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "restifizerTest",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
