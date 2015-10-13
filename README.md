@@ -1,7 +1,5 @@
 [![NPM](https://nodei.co/npm/restifizer.png?compact=true)](https://npmjs.org/package/restifizer)
 
-> HANDS UP!!! We are working to make Restifizer database-agnostic. We extracted Mongoose Data Source: https://github.com/vedi/restifizer-mongoose-ds. And make it stable. If you want to get the stable version with the old functionality use v0.3.1. Sequelize Data Source have been developed and you can get it here: https://github.com/vedi/restifizer-sequelize-ds
-
 > We are working hard to create and improve documentation. Some sections still are blank. But if you have exact questions or ideas how we can improve documentation, create a ticket with it here: https://github.com/vedi/restifizer/issues
 
 > Simple example project is available at https://github.com/vedi/restifizer-example.
@@ -177,8 +175,25 @@ Be careful if no value for a field provided, it will be set to undefined.
 http PATCH localhost:3000/api/users/<id> password=pass
 ```
 
-It partially update resource with provided `id` with data from the request. You can provide field values in body with json, or as form params. 
+It partially update resource with provided `id` with data from the request. You can provide field values in body with json, or as form params.
 
+If a resource returns an array of associated entity, it’s possible to perform special kind of `PATCH` request with special array methods. 
+The server supports the following methods:
+`$push` - add new associated items, 
+`$pull` - remove existing associated items.
+The body of the method can be different among the resources. Please, refer to resource documentation: [mongo](http://docs.mongodb.org/manual/reference/operator/update-array/).
+Example:
+Add tag to the message tags
+```
+http PATCH <serverURL>/api/messages/<messageId> Authorization:'Bearer <access_token>'
+{
+  $push: {
+    tags: {
+        tagId: 15
+    }
+  }
+}
+```
 
 ### DELETE 
 
@@ -244,6 +259,7 @@ Controllers are the way to provide needed configuration for your resource and to
 
 This param is a way to specify, what data source will be used. Today available [restifizer-mongoose-ds](https://github.com/vedi/restifizer-mongoose-ds) and [restifizer-sequelize-ds](https://github.com/vedi/restifizer-sequelize-ds) modules.
 Any resource is bound to mongoose/sequelize model, and this param is a way to specify, what the model your resource uses.
+
 Example (mongoose):
 ```
 var Restifizer = require('restifizer');
