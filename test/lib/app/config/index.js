@@ -12,6 +12,6 @@ module.exports = {
 	mysql: {
 		connectionString: mysqlConf.database,
 		username: mysqlConf.username,
-    password: mysqlConf.password
+    	password: mysqlConf.password
 	}
 };
