@@ -74,6 +74,7 @@ The set of supported parameters is determined by the data source.
 ###### filter
 
 It's json value containing any valid MongoDB query. See [docs](http://docs.mongodb.org/manual/reference/glossary/#term-query) for details. 
+
 Example:
 ```
 http GET localhost:3000/api/users?filter={"sex": "M", "age": { "$gt": 18 }}
@@ -84,6 +85,7 @@ You should replace it with `$regex` operator. See [docs](http://docs.mongodb.org
 ###### fields
 
 Comma separated list of field names.
+
 Example:
 ```
 http GET localhost:3000/api/users?fields=sex,age
@@ -92,6 +94,7 @@ http GET localhost:3000/api/users?fields=sex,age
 ###### orderBy
 
 It's json value built according MongoDB rules. Use 1 for an ascending sorting, and -1 for a descending sorting. See [docs](http://docs.mongodb.org/manual/reference/method/cursor.sort/#cursor.sort) for details.
+
 Example:
 ```
 http GET localhost:3000/api/users?orderBy={"username": 1, "age": -1}
@@ -100,6 +103,7 @@ http GET localhost:3000/api/users?orderBy={"username": 1, "age": -1}
 ###### per_page
 
 The maximum number of records in the response. `defaultPerPage` is used by default, and maximum is limited with `maxPerPage`. See [docs](http://docs.mongodb.org/manual/reference/method/cursor.limit/#cursor.limit) for details.
+
 Example:
 ```
 http GET localhost:3000/api/users?per_page=10
@@ -133,6 +137,7 @@ Comma separated list of field names.
 ###### filter
 
 In order to filter records to fetch from the server you can specify `filter` param in URL of your request. It's json value containing any valid [sequelize.js](http://docs.sequelizejs.com/en/latest/docs/querying/) query. Besides simple filtering by values it supports additional operators, which allow to build more complex query to the server. See [docs](http://docs.sequelizejs.com/en/latest/docs/querying/) for more details. 
+
 Example:
 ```
 http GET localhost:3000/api/users?filter={"gender": "M", "age": { "$gt": 18}, "name": {"$like": "Ro%"}}
@@ -182,6 +187,7 @@ The server supports the following methods:
 `$push` - add new associated items, 
 `$pull` - remove existing associated items.
 The body of the method can be different among the resources. Please, refer to resource documentation: [mongo](http://docs.mongodb.org/manual/reference/operator/update-array/).
+
 Example:
 Add tag to the message tags
 ```
@@ -220,6 +226,7 @@ It allows do get count of records of specified resource. See [docs](http://docs.
 ##### filter
 
 It's json value containing any valid MongoDB query. See [docs](http://docs.mongodb.org/manual/reference/glossary/#term-query) for details. 
+
 Example:
 ```
 {"sex": "M", age: { $gt: 18 } }}
@@ -336,10 +343,10 @@ Supported methods with arrays. Default value: ['$addToSet', '$pop', '$push', '$p
 It's relevant to update (PATCH) only. You can specify such methods in order to manipulate array fields of your resource.
 
 The params and implementations of these methods relate to the same methods in MongoDB:
-* `$addToSet` - http://docs.mongodb.org/manual/reference/operator/update/addToSet/#up._S_addToSet,
-* `$pop` - http://docs.mongodb.org/manual/reference/operator/update/pop/#up._S_pop,
-* `$push` - http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push,
-* `$pull` - http://docs.mongodb.org/manual/reference/operator/update/pull/#up._S_pull.
+* `$addToSet` - [docs](http://docs.mongodb.org/manual/reference/operator/update/addToSet/#up._S_addToSet),
+* `$pop` - [docs](http://docs.mongodb.org/manual/reference/operator/update/pop/#up._S_pop),
+* `$push` - [docs](http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push),
+* `$pull` - [docs](http://docs.mongodb.org/manual/reference/operator/update/pull/#up._S_pull).
 
 
 ### Action Options
