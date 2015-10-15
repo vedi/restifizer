@@ -1,7 +1,5 @@
 [![NPM](https://nodei.co/npm/restifizer.png?compact=true)](https://npmjs.org/package/restifizer)
 
-> HANDS UP!!! We are working to make Restifizer database-agnostic. We extracted Mongoose Data Source: https://github.com/vedi/restifizer-mongoose-ds. And make it stable. If you want to get the stable version with the old functionality use v0.3.1.
-
 > We are working hard to create and improve documentation. Some sections still are blank. But if you have exact questions or ideas how we can improve documentation, create a ticket with it here: https://github.com/vedi/restifizer/issues
 
 > Simple example project is available at https://github.com/vedi/restifizer-example.
@@ -17,13 +15,13 @@
 Restifizer
 ==========
 
-Restifizer - it's a way to significantly simplify creation of full-functional RESTful services, using MongoDB as a database.
+Restifizer - it's a way to significantly simplify creation of full-functional RESTful services. Access to the data is carried out via plug-in data sources: [restifizer-mongoose-ds](https://github.com/vedi/restifizer-mongoose-ds) and [restifizer-sequelize-ds](https://github.com/vedi/restifizer-sequelize-ds).
+The data source modules are designed on top of the [Mongoose](http://mongoosejs.com/) and the [Sequelize](http://docs.sequelizejs.com/en/latest/) respectively, which allows us to use such databases as the [MongoDB](www.mongodb.org), [MSSQL](http://www.microsoft.com/en-us/server-cloud/products/sql-server/), [MySQL](www.mysql.com), [MariaDB](mariadb.org), [PostgreSQL](http://www.postgresql.org/) and [SQLite](www.sqlite.org).
 
-The key feature of the module - it's very coupled to mongoose (MongoDB module) 
-as result it allows to make prototyping of the services as soon as it's possible. 
-Almost all the features of mongoose becomes available in your server out of the box.
+The key feature of the `restifizer` - it's very coupled to Mongoose and Sequelize ORM-s as result it allows to make prototyping of the services as soon as it's possible. 
+Wide list of the features of this ORM-s (and we working hard to extend it) becomes available in your server out of the box.
 There is a list of some of these features:
- * querying engine - it literally means you can define MongoDB queries in your http-requests,
+ * querying engine - it literally means you can define MongoDB/Sequelize queries in your http-requests,
  * aggregation - you can use rich aggregation abilities of MongoDB in your http-requests,
  * nested objects and arrays - since resources are just MongoDB docs, you can easily use any nested structures supported,
  * data population - you can easily define what the additional data should fetched and populated (JOIN) in your resource.
@@ -34,118 +32,176 @@ For example you should allow filtering by indexed fields only. By default it's a
 
 ## Resources
 
-It's a core of RESTful services. Resources are available at a specific path on the server. For example: "/api/users".
+It's a core of RESTful services. Resources are available at a specific path on the server. For example: `"/api/users"`.
 
 ## Supported HTTP methods
 
 In the best traditions of REST-genre the most of the actions with resource can be "expresed" with http-methods. 
-Restifizer supports following methods:
-    * GET - selects a set of resources or a resource if a key is specified (see `select`, `selectOne`),
-    * POST - saves new instance of resource on the server (see `insert`),
-    * PUT - replaces existing instance of resource with data provided in request (see `replace`),
-    * PATCH - updates fields of existing instance of resource with values provided in request (see `update`).
-    * DELETE - removes existing instance of resource from the server (see 'delete'). 
-
-### select
+`restifizer` supports following methods:
+ * GET - selects a set of resources or a resource if a key is specified,
+ * HEAD - retrieve all resources or a resource if a key is specified in a collection (header only),
+ * POST - saves new instance of resource on the server,
+ * PUT - replaces existing instance of resource with data provided in request,
+ * PATCH - updates fields of existing instance of resource with values provided in request,
+ * DELETE - removes existing instance of resource from the server. 
 
 > I use `httpie` (https://github.com/jakubroztocil/httpie) as a command line tool to test the servers. You can use any, but all the examples were created with syntax of `httpie`. Anyway it's recognizable.
 
+### GET (select, selectOne)
+
+Get collection (select) - retrieve all resources in a collection 
+```
+http GET <serverURL>/api/<collection>
+```
+Get resource (selectOne) - retrieve a single resource with specified <id>
+```
+http GET <serverURL>/api/<collection>/<id>
+```
+
+`restifizer` allows to get the list of resources according provided criteria. If no criteria provided, it return the first page of `maxPageSize` with all available fields.
+
 Example:
-
 ```
-http GET 'localhost:3000/api/users?filter={"username": "test"}&fields=username,createdAt&orderBy={"username": -1}'
+http GET localhost:3000/api/users?filter={"username": "test"}&fields=username,createdAt&orderBy={"username": -1}
 ```
 
-It allows to get the list of resources according provided criteria. If no criteria provided, it return the first page
-of `maxPageSize` with all available fields. 
+#### Supported parameters
 
-#### Supported params
+The set of supported parameters is determined by the data source.
 
-##### filter
+#### restifizer-mongoose-ds params:
 
-It's json value containing any valid mongo db query. See http://docs.mongodb.org/manual/reference/glossary/#term-query for details. 
-Example: 
-{"sex": "M", "age": { "$gt": 18 }}
+###### filter
 
-###### regexp values
+It's json value containing any valid MongoDB query. See [docs](http://docs.mongodb.org/manual/reference/glossary/#term-query) for details. 
 
+Example:
+```
+http GET localhost:3000/api/users?filter={"sex": "M", "age": { "$gt": 18 }}
+```
 You can use regex values in filter. As we pass JSON in this param it's not possible to use regular expression objects (/pattern/).
-You should replace it with `$regex` operator. See http://docs.mongodb.org/manual/reference/operator/query/regex/ for details.
+You should replace it with `$regex` operator. See [docs](http://docs.mongodb.org/manual/reference/operator/query/regex/) for details.
 
-##### fields
+###### fields
 
 Comma separated list of field names.
 
-##### orderBy
-
-It's json value built according MongoDB rules. Use 1 for an ascending sorting, and -1 for a descending sorting
 Example:
-{"username": 1, "age": -1}
+```
+http GET localhost:3000/api/users?fields=sex,age
+```
 
-See http://docs.mongodb.org/manual/reference/method/cursor.sort/#cursor.sort for details.
+###### orderBy
 
-##### per_page
+It's json value built according MongoDB rules. Use 1 for an ascending sorting, and -1 for a descending sorting. See [docs](http://docs.mongodb.org/manual/reference/method/cursor.sort/#cursor.sort) for details.
 
-The maximum number of records in the response. `defaultPerPage` is used by default, and maximum is limited with `maxPerPage`.
+Example:
+```
+http GET localhost:3000/api/users?orderBy={"username": 1, "age": -1}
+```
 
-See http://docs.mongodb.org/manual/reference/method/cursor.limit/#cursor.limit for details.
+###### per_page
 
-##### page
+The maximum number of records in the response. `defaultPerPage` is used by default, and maximum is limited with `maxPerPage`. See [docs](http://docs.mongodb.org/manual/reference/method/cursor.limit/#cursor.limit) for details.
 
-A number of page to return, `1` if a value is not provided. We skip `(page - 1) * per_page` records in the query to achieve that. 
-See http://docs.mongodb.org/manual/reference/method/cursor.skip/#cursor.skip for details.
+Example:
+```
+http GET localhost:3000/api/users?per_page=10
+```
 
-##### q
+###### page
+
+A number of page to return, `1` if a value is not provided. We skip `(page - 1) * per_page` records in the query to achieve that. See [docs](http://docs.mongodb.org/manual/reference/method/cursor.skip/#cursor.skip) for details.
+
+###### q
 
 Parameter for q-searches. It can be any string value. 
 `restifizer` will use it to build the following condition for every value in your `qFields`:
 ```
 {$regex: '.*' + q + ".*", $options: 'i'}
 ```
+Example:
+```
+http GET localhost:3000/api/users?q=John
+```
+
+See `q-search` section for details.
+
+
+#### restifizer-sequelize-ds params:
+
+###### fields
+
+Comma separated list of field names.
+
+###### filter
+
+In order to filter records to fetch from the server you can specify `filter` param in URL of your request. It's json value containing any valid [sequelize.js](http://docs.sequelizejs.com/en/latest/docs/querying/) query. Besides simple filtering by values it supports additional operators, which allow to build more complex query to the server. See [docs](http://docs.sequelizejs.com/en/latest/docs/querying/) for more details. 
 
 Example:
 ```
-http GET 'localhost:3000/api/users?q=John'
+http GET localhost:3000/api/users?filter={"gender": "M", "age": { "$gt": 18}, "name": {"$like": "Ro%"}}
 ```
 
-See q-search section for details.
+###### perPage
 
-### selectOne
+Every fetching request returns only one page of data. You can change default page size providing `perPage` param in URL. Default value of the page is 25, and the maximum page size limited by 100.
+
+###### page
+
+The `page` param allows you to specify page number to fetch. The page numeration begins from 1.
+
+###### orderBy
+
+For ordering the records you should use `orderBy` param in URL. It should be a valid JSON, containing field names as keys, and 1 or -1 as values depending on a way to sort (ASC or DESC).
+
+
+### POST (insert)
 
 ```
-http GET 'localhost:3000/api/users/<id>'
-```
-
-It allows to get resource by `id` provided as the last part of URL. 
-
-### insert
-
-```
-http POST 'localhost:3000/api/users' username=test password=pass
+http POST localhost:3000/api/users username=test password=pass
 ```
 
 It allows to add new resources to the server. You can provide field values in body with json, or as form params. 
 
 
-### replace
+### PUT (replace)
 
 ```
-http PUT 'localhost:3000/api/users/<id>' username=test password=pass
+http PUT localhost:3000/api/users/<id> username=test password=pass
 ```
 
 It completely replaces resource with provided `id` with new one specifided in the request. You can provide field values in body with json, or as form params. 
 Be careful if no value for a field provided, it will be set to undefined. 
 
-### update
+### PATCH (update)
 
 ```
-http PATCH 'localhost:3000/api/users/<id>' password=pass
+http PATCH localhost:3000/api/users/<id> password=pass
 ```
 
-It partially update resource with provided `id` with data from the request. You can provide field values in body with json, or as form params. 
+It partially update resource with provided `id` with data from the request. You can provide field values in body with json, or as form params.
 
+If a resource returns an array of associated entity, it’s possible to perform special kind of `PATCH` request with special array methods. 
+The server supports the following methods:
+`$push` - add new associated items, 
+`$pull` - remove existing associated items.
+The body of the method can be different among the resources. Please, refer to resource documentation: [mongo](http://docs.mongodb.org/manual/reference/operator/update-array/).
 
-### delete
+Example:
+Add tag to the message tags
+```
+http PATCH <serverURL>/api/messages/<messageId> Authorization:'Bearer <access_token>'
+{
+  $push: {
+    tags: {
+        tagId: 15
+    }
+  }
+}
+```
+
+### DELETE 
 
 ```
 http DELETE 'localhost:3000/api/users/<id>'
@@ -160,28 +216,30 @@ As an extension to standard rest-kit restifizer supports some built-in MongoDB a
 ### count
 
 ```
-http GET 'localhost:3000/api/users/count?filter={age: { $gt: 18 } }}'
+http GET localhost:3000/api/users/count?filter={age: { $gt: 18 } }}
 ```
 
-It allows do get count of records of specified resource. See http://docs.mongodb.org/manual/reference/method/db.collection.count/ for details.
+It allows do get count of records of specified resource. See [docs](http://docs.mongodb.org/manual/reference/method/db.collection.count/) for details.
 
 #### Supported params
 
 ##### filter
 
-It's json value containing any valid mongo db query. See http://docs.mongodb.org/manual/reference/glossary/#term-query for details. 
-Example: 
+It's json value containing any valid MongoDB query. See [docs](http://docs.mongodb.org/manual/reference/glossary/#term-query) for details. 
+
+Example:
+```
 {"sex": "M", age: { $gt: 18 } }}
+```
 
 ### aggregate
 
 ```
-http GET 'localhost:3000/api/users/aggregate?filter={age: { $gt: 18 } }}'
+http GET localhost:3000/api/users/aggregate?filter={age: { $gt: 18 } }}
 ```
 
-It performs aggregation of the resource records. See http://docs.mongodb.org/manual/aggregation/ for details.
+It performs aggregation of the resource records. See [docs](http://docs.mongodb.org/manual/aggregation/) for details.
 
-TBD
 
 ## Response status
 
@@ -194,9 +252,9 @@ TBD
 ## Paging
 
 It relates to getting the list of resources. Every such response is limited with paging rules:
- # an user specifies `per_page` and `page` params in URL,
- # if params are not provided default rules are applied (see `restifizerOptions.defaultPerPage`),
- # if `per_page` greater then `restifizerOptions.maxPerPage`, value of `maxPerPage` is used. 
+* an user specifies `per_page` and `page` params in URL,
+* if params are not provided default rules are applied (see `restifizerOptions.defaultPerPage`),
+* if `per_page` greater then `restifizerOptions.maxPerPage`, value of `maxPerPage` is used. 
 
 ## Controllers
 
@@ -204,9 +262,37 @@ Controllers are the way to provide needed configuration for your resource and to
  
 ### Properties
 
-#### ModelClass
+#### dataSource
 
-Any resource is bound to mongoose model, and this param is a way to specify, what the model your resource uses.
+This param is a way to specify, what data source will be used. Today available [restifizer-mongoose-ds](https://github.com/vedi/restifizer-mongoose-ds) and [restifizer-sequelize-ds](https://github.com/vedi/restifizer-sequelize-ds) modules.
+Any resource is bound to mongoose/sequelize model, and this param is a way to specify, what the model your resource uses.
+
+Example (mongoose):
+```
+var Restifizer = require('restifizer');
+var MongooseDataSource = require('restifizer-mongoose-ds');
+var User = require('MongooseUserModel');
+
+var UserController = Restifizer.Controller.extend({
+  dataSource: new MongooseDataSource(User),
+  path: '/api/users',
+  ...
+});
+```
+
+Example (sequelize):
+```
+var Restifizer = require('restifizer');
+var SequelizeDataSource = require('restifizer-sequelize-ds');
+var User = require('SequelizeUserModel');
+
+var UserController = Restifizer.Controller.extend({
+  dataSource: new SequelizeDataSource(User),
+  path: '/api/users',
+  ...
+});
+
+```
 
 #### path
 
@@ -218,8 +304,7 @@ For instance, you can write:
 ```
 path: ['/api/appData', '/api/users/:owner/appData']
 ```
-and in the case if an user requests data at `/api/users/543d2605e21f85d73b060979/appData`, appData will be filtered by 
-provided value of `owner`.
+and in the case if an user requests data at `/api/users/543d2605e21f85d73b060979/appData`, appData will be filtered by provided value of `owner`.
 
 #### fields
 
@@ -252,14 +337,16 @@ and set `q` param of your GET request (see `q` for details).
 
 ### arrayMethods
 
+>Available only for restifizer-mongoose-ds data source.
+
 Supported methods with arrays. Default value: ['$addToSet', '$pop', '$push', '$pull'].
-It's relevant to update (PATCH) only. You can specify such methods in order to manipulate array fields of your resourse.
+It's relevant to update (PATCH) only. You can specify such methods in order to manipulate array fields of your resource.
 
 The params and implementations of these methods relate to the same methods in MongoDB:
-* `$addToSet` - http://docs.mongodb.org/manual/reference/operator/update/addToSet/#up._S_addToSet,
-* `$pop` - http://docs.mongodb.org/manual/reference/operator/update/pop/#up._S_pop,
-* `$push` - http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push,
-* `$pull` - http://docs.mongodb.org/manual/reference/operator/update/pull/#up._S_pull.
+* `$addToSet` - [docs](http://docs.mongodb.org/manual/reference/operator/update/addToSet/#up._S_addToSet),
+* `$pop` - [docs](http://docs.mongodb.org/manual/reference/operator/update/pop/#up._S_pop),
+* `$push` - [docs](http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push),
+* `$pull` - [docs](http://docs.mongodb.org/manual/reference/operator/update/pull/#up._S_pull).
 
 
 ### Action Options
@@ -279,7 +366,6 @@ default ->
             replace
             delete
     count
-
 ```
 
 > TODO: Change example
@@ -340,7 +426,7 @@ At this point you can change the resource by itself. For instance, you can fill 
 
 `queryPipe: function (query, req, res, callback)`
 
-You can use `queryPipe` if you need to call additional methods at `mongoose` `query` (http://mongoosejs.com/docs/queries.html).
+You can use `queryPipe` if you need to call additional methods at `mongoose` `query` ([docs](http://mongoosejs.com/docs/queries.html)).
 This method is called after all `restifizer` calls are done, but immediately before `exec`.
 
 Draw your attention, this method is called in 2 different semantics:
@@ -350,9 +436,9 @@ In order to make your method workable in both semantics use the way from example
 
 So, in this example we put `populate` to our query pipe:
 ```
-    queryPipe: function (query, req, res, callback) {
-      return query.populate("fieldToPopulate", callback);
-    }
+  queryPipe: function (query, req, res, callback) {
+    return query.populate("fieldToPopulate", callback);
+  }
 ```
 
 #### prepareData
@@ -460,7 +546,7 @@ var YourController = Restifizer.Controller.extend({
 `assignFilter: function (dest, source, fieldName, req)`
 
 Filters assigning field with name `fieldName`.
-In this method you can synchroniously return `true` / `false`, allowing / denying to assign exact feilds.
+In this method you can synchronously return `true` / `false`, allowing / denying to assign exact fields.
 For example you can silently skip of changing of exact fields for non-admin users:
 ```
 var YourController = Restifizer.Controller.extend({
@@ -477,7 +563,7 @@ var YourController = Restifizer.Controller.extend({
 
 `createDocument: function (data, req, res, callback)`
 
-Creates mongoose document. It's called when you create new instance of your resource after all assignments are already done,
+Creates document. It's called when you create new instance of your resource after all assignments are already done,
 but immediately before saving it to your database.
 
 #### saveDocument
@@ -492,11 +578,11 @@ Saves document to db, called in inserts and updates, after `createDocument` or `
 
 #### defaultPerPage
 
-This value is used in all `select` requests if no `per_page` has been provided. Default value is `25`.
+This value is used in all `select` requests if no `per_page`/`perPage` has been provided. Default value is `25`.
 
 #### maxPerPage
 
-This value restricts maximum value of `per_page` supported with your app. Default value is `100`.
+This value restricts maximum value of `per_page`/`perPage` supported with your app. Default value is `100`.
 
 ### Testing
 

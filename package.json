@@ -55,9 +55,10 @@
     "express": "~4.9.5",
     "mongoose": "^4.1.9",
     "mysql": "^2.9.0",
+    "request": "^2.64.0",
     "request-json": "^0.5.3",
-    "restifizer-mongoose-ds": "^0.0.5",
-    "restifizer-sequelize-ds": "https://github.com/igbasov/restifizer-sequelize-ds.git",
+    "restifizer-mongoose-ds": "^0.0.6",
+    "restifizer-sequelize-ds": "^0.0.12",
     "sequelize": "^3.11.0",
     "sequelize-cli": "^1.9.1"
   }

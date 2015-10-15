@@ -43,4 +43,4 @@ function World(callback) {
 
 module.exports = function () {
 	this.World = World;
-}
+};

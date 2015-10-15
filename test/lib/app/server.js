@@ -4,7 +4,7 @@ var express = require('express');
 var http = require('http');
 var Restifizer = require('../../../index.js');
 var config = require('./config');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 mongoose.connect(config.mongoose.connectionString, function (err) {
@@ -21,6 +21,7 @@ mongoose.connect(config.mongoose.connectionString, function (err) {
 
 	var restifizer = new Restifizer(app, {});
 	restifizer.addController(require('./controllers/employee'));
+	restifizer.addController(require('./controllers/employeeInfo'));
 	restifizer.addController(require('./controllers/contact'));
 
 	var server = http.Server(app);

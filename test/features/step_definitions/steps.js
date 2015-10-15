@@ -29,18 +29,14 @@ module.exports = function () {
                     throw new Error("Unknown method: " + method);
             }
         })
-            .spread(function (res, body) {
+        .spread(function (res, body) {
             _this.res = res;
             _this.body = body;
         })
-            .then(function () {
-            callback();
-        })
-            .catch(function (err) {
-            callback.fail(err);
-        });
+        .then(callback)
+        .catch(callback.fail);
     });
-    
+
     //Response status
     this.Then(/^I should get (success|fail) with code ([\d]*)$/, function (flag, code, callback) {
         expect(this.res.statusCode).to.be.equal(parseInt(code));
