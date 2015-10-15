@@ -1,4 +1,5 @@
 'use strict';
+var config = require('../app/config');
 
 module.exports = {
 	mongo: {

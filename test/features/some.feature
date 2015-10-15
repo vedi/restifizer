@@ -160,3 +160,9 @@ Feature: Example feature
 		When I put "id" from mysql.additionalTestContact to request
 		And I send targeted delete request to contacts
 		Then I should get success with code 200
+
+	Scenario: Check 'defaultFields' parameter
+        When I put "_id" from mongo.testEmployee to request
+        And I send targeted get request to employeesInfo
+        Then I should get success with code 200
+        And I get not "emails" in response
