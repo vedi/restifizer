@@ -29,9 +29,9 @@ module.exports = function () {
                     throw new Error("Unknown method: " + method);
             }
         })
-        .spread(function (res, body) {
+        .then(function (res) {
             _this.res = res;
-            _this.body = body;
+            _this.body = res.body;
         })
         .then(callback)
         .catch(callback.fail);

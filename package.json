@@ -4,12 +4,10 @@
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-migrate && npm run test-app | npm run test-cucumber && npm run test-migrate-undo",
-    "test-clear": "npm run test-migrate-undo",
-    "test-app": "node ./test/lib/app/server.js",
-    "test-cucumber": "cd ./test && echo \"Wait 5 seconds (test server starting)...\" && sleep 5 && cucumber.js",
+    "test": "npm run test-migrate && npm run test-cucumber && npm run test-migrate-undo",
+    "test-cucumber": "./node_modules/.bin/istanbul cover cucumber.js ./test",
     "test-migrate": "cd ./test/lib/app/ && ../../../node_modules/.bin/sequelize db:migrate",
-    "test-migrate-undo": "cd ./test/lib/app/ && ../../../node_modules/.bin/sequelize db:migrate:undo"
+    "test-migrate-undo": "cd ./test/lib/app/ && ../../../node_modules/.bin/sequelize db:migrate:undo && echo 'migration:undo completed'"
   },
   "repository": {
     "type": "git",
@@ -51,15 +49,14 @@
   "devDependencies": {
     "body-parser": "~1.9.0",
     "chai": "^3.2.0",
-    "cucumber": "^0.6.0",
     "express": "~4.9.5",
+    "istanbul": "^0.4.0",
     "mongoose": "^4.1.9",
     "mysql": "^2.9.0",
-    "request": "^2.64.0",
-    "request-json": "^0.5.3",
     "restifizer-mongoose-ds": "^0.0.6",
     "restifizer-sequelize-ds": "^0.0.12",
     "sequelize": "^3.11.0",
-    "sequelize-cli": "^1.9.1"
+    "sequelize-cli": "^1.9.1",
+    "supertest": "^1.1.0"
   }
 }

@@ -593,7 +593,3 @@ Then run
 ```bash
 $ npm test
 ```
-And to undo migration execute
-```bash
-$ npm run test-clear
-```
