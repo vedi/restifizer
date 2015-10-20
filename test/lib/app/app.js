@@ -21,5 +21,7 @@ var restifizer = new Restifizer(app, {});
 restifizer.addController(require('./controllers/employee'));
 restifizer.addController(require('./controllers/employeeInfo'));
 restifizer.addController(require('./controllers/contact'));
+restifizer.addController(require('./controllers/agent'));
+restifizer.addController(require('./controllers/mission'));
 
 module.exports = app;

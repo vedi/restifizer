@@ -15,6 +15,11 @@ Feature: Example feature
 		Then I should get success with code 201
 		And I get "name" with value equals to mongo.additionalTestEmployee.name in response
 		And I get "_id" in response
+
+    Scenario: Get Count request to employees
+        When I send get request to employees/count
+        Then I should get success with code 200
+        And I get "count" with value "2" in response
 	
 	Scenario: Get Employees List
 		When I send get request to employees
@@ -66,18 +71,20 @@ Feature: Example feature
 		And I get "name" with value equals to mongo.replaceEmployee.name in response
 		And I get "lastName" with value equals to mongo.replaceEmployee.lastName in response
 	
-	Scenario: Update Employee
+	Scenario: Update Employee (with using of arrayMethods)
 		When I put "_id" from mongo.additionalTestEmployee to request
 		And I put mongo.updateForEmployee as parameters to request
 		And I send targeted patch request to employees
 		Then I should get success with code 200
 		And I get "name" with value equals to mongo.updateForEmployee.name in response
+        And I get "emails.length" with value "2" in response
+        And I get "phones.length" with value "" in response
 	
 	Scenario: Delete Employee
 		When I put "_id" from mongo.additionalTestEmployee to request
 		And I send targeted delete request to employees
 		Then I should get success with code 200
-		
+
 	Scenario: Create Contact (Ivan Ivanov)
 		When I put mysql.testContact as parameters to request
 		And I send post request to contacts
@@ -166,3 +173,48 @@ Feature: Example feature
         And I send targeted get request to employeesInfo
         Then I should get success with code 200
         And I get not "emails" in response
+
+    Scenario: Create Agent, check helper action utils and postprocessor of the controller
+        When I put mongo.agent as parameters to request
+        And I send post request to agents
+        Then I should get success with code 201
+        And I get "name" with value equals to mongo.agent.name in response
+        And I get "actionsCheck.isSelect" with value "" in response
+        And I get "actionsCheck.isChanging" with value "true" in response
+        And I get "actionsCheck.isInsert" with value "true" in response
+        And I get "actionsCheck.isUpdate" with value "" in response
+        And I get "actionsCheck.isDelete" with value "" in response
+        And I get "actionsCheck.isSelectOne" with value "" in response
+        And I get "actionsCheck.isReplace" with value "" in response
+        And I get "actionsCheck.isCount" with value "" in response
+        And I get "_id" in response
+
+    Scenario: Create Mission
+        When I put mongo.mission as parameters to request
+        And I send post request to missions
+        Then I should get success with code 201
+        And I get "description" with value equals to mongo.mission.description in response
+        And I get "agent.name" with value equals to mongo.agent.name in response
+        And I get "_id" in response
+
+    Scenario: Get 404 in GET request
+        When I put "_id" from mongo.absentMission to request
+        And I send targeted get request to missions
+        Then I should get fail with code 404
+
+    Scenario: Replace Employee
+        And I put mongo.mission as parameters to request
+        When I put "_id" from mongo.absentMission to request
+        And I send targeted put request to missions
+        Then I should get fail with code 404
+
+    Scenario: Update Employee
+        And I put mongo.mission as parameters to request
+        When I put "_id" from mongo.absentMission to request
+        And I send targeted patch request to missions
+        Then I should get fail with code 404
+
+    Scenario: Delete Employee
+        When I put "_id" from mongo.absentMission to request
+        And I send targeted delete request to missions
+        Then I should get fail with code 404

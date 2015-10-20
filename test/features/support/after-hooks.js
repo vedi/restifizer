@@ -1,6 +1,5 @@
 'use strict';
 
-var config = require('../../lib/app/config/index').mongoose;
 var mongoose = require('mongoose');
 
 module.exports = function () {

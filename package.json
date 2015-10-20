@@ -4,7 +4,7 @@
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-migrate && npm run test-cucumber && npm run test-migrate-undo",
+    "test": "npm run test-migrate && npm run test-cucumber ; npm run test-migrate-undo",
     "test-cucumber": "./node_modules/.bin/istanbul cover cucumber.js ./test",
     "test-migrate": "cd ./test/lib/app/ && ../../../node_modules/.bin/sequelize db:migrate",
     "test-migrate-undo": "cd ./test/lib/app/ && ../../../node_modules/.bin/sequelize db:migrate:undo && echo 'migration:undo completed'"
