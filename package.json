@@ -25,7 +25,7 @@
     "nosql"
   ],
   "dependencies": {
-    "bluebird": "^2.9.13",
+    "bluebird": "^3.0.1",
     "http-statuses": "~0.1.x",
     "lodash": "~3.10.1"
   },
@@ -53,8 +53,8 @@
     "istanbul": "^0.4.0",
     "mongoose": "^4.1.9",
     "mysql": "^2.9.0",
-    "restifizer-mongoose-ds": "^0.0.6",
-    "restifizer-sequelize-ds": "^0.0.12",
+    "restifizer-mongoose-ds": "git+https://github.com/igbasov/restifizer-mongoose-ds.git",
+    "restifizer-sequelize-ds": "git+https://github.com/igbasov/restifizer-sequelize-ds.git",
     "sequelize": "^3.11.0",
     "sequelize-cli": "^1.9.1",
     "supertest": "^1.1.0"

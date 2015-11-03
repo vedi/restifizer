@@ -19,7 +19,7 @@ module.exports = BaseController.extend({
         '_id',
         'description'
     ],
-    queryPipe: function (query, req, res, callback) {
+    queryPipe: function (query, scope, callback) {
         return query.populate("agent", callback);
     }
 });

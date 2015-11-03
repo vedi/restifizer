@@ -83,7 +83,7 @@ Feature: Example feature
 	Scenario: Delete Employee
 		When I put "_id" from mongo.additionalTestEmployee to request
 		And I send targeted delete request to employees
-		Then I should get success with code 200
+		Then I should get success with code 204
 
 	Scenario: Create Contact (Ivan Ivanov)
 		When I put mysql.testContact as parameters to request
@@ -166,7 +166,7 @@ Feature: Example feature
 	Scenario: Delete Contact
 		When I put "id" from mysql.additionalTestContact to request
 		And I send targeted delete request to contacts
-		Then I should get success with code 200
+		Then I should get success with code 204
 
 	Scenario: Check 'defaultFields' parameter
         When I put "_id" from mongo.testEmployee to request
@@ -202,19 +202,38 @@ Feature: Example feature
         And I send targeted get request to missions
         Then I should get fail with code 404
 
-    Scenario: Replace Employee
+    Scenario: Get 404 in PUT request
         And I put mongo.mission as parameters to request
         When I put "_id" from mongo.absentMission to request
         And I send targeted put request to missions
         Then I should get fail with code 404
 
-    Scenario: Update Employee
+    Scenario: Get 404 in PATCH request
         And I put mongo.mission as parameters to request
         When I put "_id" from mongo.absentMission to request
         And I send targeted patch request to missions
         Then I should get fail with code 404
 
-    Scenario: Delete Employee
+    Scenario: Get 404 in DELETE request
         When I put "_id" from mongo.absentMission to request
         And I send targeted delete request to missions
         Then I should get fail with code 404
+
+  	Scenario: Get Missions List
+		When I send get request to missions
+		Then I should get success with code 200
+		And I get an array with length equals to 1 in response
+
+  	Scenario: Get Mission using targeted request
+		When I put "_id" from mongo.mission to request
+		And I send targeted get request to missions
+		Then I should get success with code 200
+		And I get "_id" with value equals to mongo.mission._id in response
+
+    Scenario: Replace Mission
+        When I put "_id" from mongo.mission to request
+        And I put mongo.missionUpdates as parameters to request
+        And I send targeted put request to missions
+        Then I should get success with code 200
+        And I get "description" with value equals to mongo.missionUpdates.description in response
+        And I get "agent._id" with value equals to mongo.missionUpdates.agent in response

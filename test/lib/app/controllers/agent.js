@@ -23,18 +23,18 @@ module.exports = BaseController.extend({
         'lastName',
         'emails'
     ],
-    post: function (resource, req, res, callback) {
-        resource.actionsCheck = {
-            isSelect: req.restifizer.isSelect(),
-            isChanging: req.restifizer.isChanging(),
-            isInsert: req.restifizer.isInsert(),
-            isUpdate: req.restifizer.isUpdate(),
-            isDelete: req.restifizer.isDelete(),
-            isSelectOne: req.restifizer.isSelectOne(),
-            isReplace: req.restifizer.isReplace(),
-            isCount: req.restifizer.isCount()
+    post: function (scope) {
+        scope.model.actionsCheck = {
+            isSelect: scope.isSelect(),
+            isChanging: scope.isChanging(),
+            isInsert: scope.isInsert(),
+            isUpdate: scope.isUpdate(),
+            isDelete: scope.isDelete(),
+            isSelectOne: scope.isSelectOne(),
+            isReplace: scope.isReplace(),
+            isCount: scope.isCount()
         };
 
-        callback(null, resource);
+        return scope;
     }
 });

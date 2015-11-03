@@ -1,13 +1,18 @@
 'use strict';
 var
-  RestifizerController = require("./lib/restifizer");
+  RestifizerController = require("./lib/restifizer"),
+  config = require('./lib/config');
 
 
 function Restifizer(app, options) {
+  if (!(this instanceof Restifizer)) {
+    return new Restifizer(app, options);
+  }
+
   this.app = app;
   this.restifizerOptions = options || {};
   if (!this.restifizerOptions.config) {
-    this.restifizerOptions.config = {defaultPerPage: 25, maxPerPage: 100};
+    this.restifizerOptions.config = config;
   }
 }
 
