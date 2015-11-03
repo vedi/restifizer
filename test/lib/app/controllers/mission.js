@@ -3,12 +3,16 @@
  */
 'use strict';
 
-var MongooseDataSource = require('restifizer-mongoose-ds');
 var Mission = require('../models/mission');
 var BaseController = require('./base');
 
 module.exports = BaseController.extend({
-    dataSource: new MongooseDataSource(Mission),
+    dataSource: {
+        type: 'mongoose',
+        options: {
+            model: Mission
+        }
+    },
     path: '/api/missions',
     fields: [
         '_id',

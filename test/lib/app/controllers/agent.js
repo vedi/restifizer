@@ -3,12 +3,16 @@
  */
 'use strict';
 
-var MongooseDataSource = require('restifizer-mongoose-ds');
 var Agent = require('../models/agent');
 var BaseController = require('./base');
 
 module.exports = BaseController.extend({
-    dataSource: new MongooseDataSource(Agent),
+    dataSource: {
+        type: 'mongoose',
+        options: {
+          model: Agent
+        }
+    },
     path: '/api/agents',
     fields: [
         'name',
@@ -23,8 +27,8 @@ module.exports = BaseController.extend({
         'lastName',
         'emails'
     ],
-    post: function (scope) {
-        scope.model.actionsCheck = {
+    post: function (model, scope) {
+        model.actionsCheck = {
             isSelect: scope.isSelect(),
             isChanging: scope.isChanging(),
             isInsert: scope.isInsert(),
@@ -35,6 +39,6 @@ module.exports = BaseController.extend({
             isCount: scope.isCount()
         };
 
-        return scope;
+        return model;
     }
 });

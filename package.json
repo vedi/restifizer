@@ -27,7 +27,9 @@
   "dependencies": {
     "bluebird": "^3.0.1",
     "http-statuses": "~0.1.x",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "restifizer-mongoose-ds": "git+https://github.com/igbasov/restifizer-mongoose-ds.git",
+    "restifizer-sequelize-ds": "git+https://github.com/igbasov/restifizer-sequelize-ds.git"
   },
   "author": {
     "name": "Fedor Shubin"
@@ -53,8 +55,6 @@
     "istanbul": "^0.4.0",
     "mongoose": "^4.1.9",
     "mysql": "^2.9.0",
-    "restifizer-mongoose-ds": "git+https://github.com/igbasov/restifizer-mongoose-ds.git",
-    "restifizer-sequelize-ds": "git+https://github.com/igbasov/restifizer-sequelize-ds.git",
     "sequelize": "^3.11.0",
     "sequelize-cli": "^1.9.1",
     "supertest": "^1.1.0"
