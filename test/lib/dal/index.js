@@ -35,8 +35,29 @@ module.exports = {
 			'lastName': 'Ivanoff'
 		},
 		updateForEmployee: {
-			'name': 'Jane'
-		}
+			'name': 'Jane',
+      '$push': { 'emails': 'jane@doe.com' },
+      '$pop': { 'phones': 1 }
+		},
+		agent: {
+      '_id': '007',
+      'name': 'James',
+      'lastName': 'Bond',
+      'phones': [{ 'phoneType': 'mobile', 'phoneNumber': '+xxxxx xxx xxxx' }],
+      'emails': ['bond.007@mi6.co.uk']
+    },
+    mission: {
+      '_id': 'Casino Royale',
+      'description': 'You must defeat a weapons dealer in a high stakes game of poker at Casino Royale.',
+      'agent': '007'
+    },
+		missionUpdates: {
+			'description': 'You must servive',
+			'agent': '007'
+		},
+    absentMission: {
+      id: 'Saving private Ryan'
+    }
 	},
 	mysql: {
 		testContact: {

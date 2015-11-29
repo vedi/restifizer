@@ -1,6 +1,6 @@
 'use strict';
 
-var dataSource = require('../../lib/dal');
+var dataSource = require('../../lib/dal/index');
 var _ = require('lodash');
 
 function World(callback) {
