@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.4.21",
+  "version": "0.5.0",
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
