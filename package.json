@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "http-statuses": "~0.1.x",
     "lodash": "~3.10.1",
     "restifizer-mongoose-ds": "git+https://github.com/igbasov/restifizer-mongoose-ds.git",
-    "restifizer-sequelize-ds": "git+https://github.com/igbasov/restifizer-sequelize-ds.git"
+    "restifizer-sequelize-ds": "~0.1.0"
   },
   "author": {
     "name": "Fedor Shubin"
