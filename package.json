@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "bluebird": "^3.0.1",
     "http-statuses": "~0.1.x",
     "lodash": "~3.10.1",
-    "restifizer-mongoose-ds": "~0.0.7",
+    "restifizer-mongoose-ds": "~0.1.0",
     "restifizer-sequelize-ds": "~0.1.2"
   },
   "author": {
