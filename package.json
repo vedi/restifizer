@@ -25,7 +25,7 @@
     "nosql"
   ],
   "dependencies": {
-    "bluebird": "^3.1.2",
+    "bluebird": "^3.3.1",
     "http-statuses": "^0.1.1",
     "lodash": "^3.10.1",
     "restifizer-mongoose-ds": "^0.1.4",
