@@ -1,7 +1,8 @@
 'use strict';
-var
-  RestifizerController = require("./lib/restifizer"),
-  config = require('./lib/config');
+
+var _ = require('lodash');
+var RestifizerController = require('./lib/restifizer');
+var config = require('./lib/config');
 
 
 function Restifizer(app, options) {
@@ -17,7 +18,7 @@ function Restifizer(app, options) {
 }
 
 Restifizer.prototype.createController = function (Controller) {
-  return new Controller(this.restifizerOptions);
+  return new Controller(_.clone(this.restifizerOptions));
 };
 
 Restifizer.prototype.addController = function (Controller) {
