@@ -2,12 +2,12 @@
 
 var mysqlConf = require('./config').development;
 module.exports = {
-    mongoose: {
-        connectionString: 'mongodb://localhost/restifizerTest'
-    },
-    mysql: {
-        connectionString: mysqlConf.database,
-        username: mysqlConf.username,
-        password: mysqlConf.password
-    }
+  mongoose: {
+    connectionString: 'mongodb://localhost/restifizerTest'
+  },
+  mysql: {
+    connectionString: mysqlConf.database,
+    username: mysqlConf.username,
+    password: mysqlConf.password
+  }
 };

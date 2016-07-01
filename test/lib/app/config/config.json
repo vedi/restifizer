@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "",
     "database": "restifizerTest",
     "host": "localhost",
     "dialect": "mysql"

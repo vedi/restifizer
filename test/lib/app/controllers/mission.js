@@ -3,27 +3,38 @@
  */
 'use strict';
 
+var _ = require('lodash');
 var Mission = require('../models/mission');
-var BaseController = require('./base');
+var BaseController = require('./base.controller');
 
-module.exports = BaseController.extend({
-    dataSource: {
+class MissionController extends BaseController {
+  constructor(options) {
+
+    options = options || {};
+    _.assign(options, {
+      dataSource: {
         type: 'mongoose',
         options: {
-            model: Mission
+          model: Mission
         }
-    },
-    path: '/api/missions',
-    fields: [
+      },
+      path: '/api/missions',
+      fields: [
         '_id',
         'description',
-        'agent'
-    ],
-    qFields: [
+        {
+          name: 'agent',
+          fields: ['name']
+        }
+      ],
+      qFields: [
         '_id',
         'description'
-    ],
-    queryPipe: function (query, scope, callback) {
-        return query.populate("agent", callback);
-    }
-});
+      ]
+    });
+
+    super(options);
+  }
+}
+
+module.exports = MissionController;
