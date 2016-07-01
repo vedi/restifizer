@@ -1,35 +1,39 @@
 'use strict';
 
 var _ = require('lodash');
-var RestifizerController = require('./lib/restifizer');
+var RestifizerController = require('./lib/controller');
 var config = require('./lib/config');
 
 
-function Restifizer(app, options) {
-  if (!(this instanceof Restifizer)) {
-    return new Restifizer(app, options);
+class Restifizer {
+  constructor(app, options) {
+    if (!(this instanceof Restifizer)) {
+      return new Restifizer(app, options);
+    }
+
+    this.app = app;
+    this.restifizerOptions = options || {};
+    if (!this.restifizerOptions.config) {
+      this.restifizerOptions.config = config;
+    }
   }
 
-  this.app = app;
-  this.restifizerOptions = options || {};
-  if (!this.restifizerOptions.config) {
-    this.restifizerOptions.config = config;
-  }
+  createController(Controller) {
+    return new Controller(_.clone(this.restifizerOptions));
+  };
+
+  addController(Controller) {
+    this.bind(this.createController(Controller));
+    return this;
+  };
+
+  bind(controller) {
+    controller.bind(this.app);
+    return this;
+  };
+
 }
 
-Restifizer.prototype.createController = function (Controller) {
-  return new Controller(_.clone(this.restifizerOptions));
-};
-
-Restifizer.prototype.addController = function (Controller) {
-  this.bind(this.createController(Controller));
-  return this;
-};
-
-Restifizer.prototype.bind = function (controller) {
-  controller.bind(this.app);
-  return this;
-};
 
 Restifizer.Controller = RestifizerController;
 
