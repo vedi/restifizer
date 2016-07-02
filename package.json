@@ -29,7 +29,7 @@
     "http-statuses": "^0.1.1",
     "lodash": "^3.10.1",
     "restifizer-mongoose-ds": "^0.1.5",
-    "restifizer-sequelize-ds": "^0.1.3"
+    "restifizer-sequelize-ds": "^0.2.0"
   },
   "author": {
     "name": "Fedor Shubin"
