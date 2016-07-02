@@ -375,7 +375,7 @@ All handlers receive `scope` in params, where you can get `req` for example. In 
 
 #### pre
 
-`pre: function (scope)`
+`pre(scope)`
 
 `pre` is a preprocessor that is executed at the beginning before any other logic runs. It's a good point to check
 preconditions of your request. For example check if the request is executed by Admin:
@@ -388,16 +388,20 @@ preconditions of your request. For example check if the request is executed by A
   }
 ```
 
+Additionally you can specify `pre`-handler on action level, and it will be ran instead.
+
 #### collectionPost
 
-`collectionPost: function (collection, scope)`
+`collectionPost(collection, scope)`
 
 When `select` returns any collection from db, this collection is passed through this postprocessor.
 It's a good point if you want to manipulate with the set of items of the collection, but not with items by themselves.
 
+Additionally you can specify `collectionPost`-handler on action level, and it will be ran instead.
+
 #### post
 
-`post: function (resource, scope)`
+`post(resource, scope)`
 
 `post` is postprocessor. It runs immediately before a resource is sent to an user.
 At this point you can change the resource by itself. For instance, you can fill calculated fields here:
@@ -410,6 +414,8 @@ At this point you can change the resource by itself. For instance, you can fill 
     return resource;
   }
 ```
+
+Additionally you can specify `post`-handler on action level, and it will be ran instead.
 
 #### queryPipe
 
