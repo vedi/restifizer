@@ -1,16 +1,10 @@
 [![NPM](https://nodei.co/npm/restifizer.png?compact=true)](https://npmjs.org/package/restifizer)
 
-> We are working hard to create and improve documentation. Some sections still are blank. But if you have exact questions or ideas how we can improve documentation, create a ticket with it here: https://github.com/vedi/restifizer/issues
-
 > Simple example project is available at https://github.com/vedi/restifizer-example.
 
 > Full functional seed-project based on MEAN.JS (http://meanjs.org/) is available at https://github.com/vedi/restifizer-mean.js.
 
 > If you are looking for Restifizer SDK for Unity3d, you can find it here: https://github.com/vedi/restifizer-unity3d
-
-> FileController was extracted to a separate module: https://github.com/vedi/restifizer-files
-
-> Any feedback is appreciated.
 
 Restifizer
 ==========
