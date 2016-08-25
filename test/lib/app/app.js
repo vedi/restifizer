@@ -8,10 +8,10 @@ var Restifizer = require('../../../index.js');
 var config = require('./config');
 
 mongoose.connect(config.mongoose.connectionString, function (err) {
-    if (err) {
-        console.error('Cannot connect to mongo');
-        return console.log(err);
-    }
+  if (err) {
+    console.error('Cannot connect to mongo');
+    return console.log(err);
+  }
 });
 
 var app = express();

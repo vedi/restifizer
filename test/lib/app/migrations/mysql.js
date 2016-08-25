@@ -17,9 +17,9 @@ module.exports = {
       },
       {
         /*engine: 'InnoDB',
-        charset: 'utf8'*/
+         charset: 'utf8'*/
       }
-      );
+    );
   },
   down: function (queryInterface, Sequelize) {
     return queryInterface.dropAllTables();

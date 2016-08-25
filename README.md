@@ -1,16 +1,10 @@
 [![NPM](https://nodei.co/npm/restifizer.png?compact=true)](https://npmjs.org/package/restifizer)
 
-> We are working hard to create and improve documentation. Some sections still are blank. But if you have exact questions or ideas how we can improve documentation, create a ticket with it here: https://github.com/vedi/restifizer/issues
-
 > Simple example project is available at https://github.com/vedi/restifizer-example.
 
 > Full functional seed-project based on MEAN.JS (http://meanjs.org/) is available at https://github.com/vedi/restifizer-mean.js.
 
 > If you are looking for Restifizer SDK for Unity3d, you can find it here: https://github.com/vedi/restifizer-unity3d
-
-> FileController was extracted to a separate module: https://github.com/vedi/restifizer-files
-
-> Any feedback is appreciated.
 
 Restifizer
 ==========
@@ -22,7 +16,6 @@ The key feature of the `restifizer` - it's very coupled to Mongoose and Sequeliz
 Wide list of the features of this ORM-s (and we working hard to extend it) becomes available in your server out of the box.
 There is a list of some of these features:
  * querying engine - it literally means you can define MongoDB/Sequelize queries in your http-requests,
- * aggregation - you can use rich aggregation abilities of MongoDB in your http-requests,
  * nested objects and arrays - since resources are just MongoDB docs, you can easily use any nested structures supported,
  * data population - you can easily define what the additional data should fetched and populated (JOIN) in your resource.
 
@@ -209,17 +202,15 @@ http DELETE 'localhost:3000/api/users/<id>'
 
 It removes the record by `id`.
 
-## Aggregation
+## count
 
-As an extension to standard rest-kit restifizer supports some built-in MongoDB aggregations.
-
-### count
+As an extension to standard rest-kit.
 
 ```
 http GET localhost:3000/api/users/count?filter={age: { $gt: 18 } }}
 ```
 
-It allows do get count of records of specified resource. See [docs](http://docs.mongodb.org/manual/reference/method/db.collection.count/) for details.
+It allows to get count of records of specified resource. See [docs](http://docs.mongodb.org/manual/reference/method/db.collection.count/) for details.
 
 #### Supported params
 
@@ -231,15 +222,6 @@ Example:
 ```
 {"sex": "M", age: { $gt: 18 } }}
 ```
-
-### aggregate
-
-```
-http GET localhost:3000/api/users/aggregate?filter={age: { $gt: 18 } }}
-```
-
-It performs aggregation of the resource records. See [docs](http://docs.mongodb.org/manual/aggregation/) for details.
-
 
 ## Response status
 
@@ -383,52 +365,61 @@ var YourController = Restifizer.Controller.extend({
 
 ### Handlers
 
+All handlers receive `scope` in params, where you can get `req` for example. In return you can use a promise.
+
 #### pre
 
-`pre: function (req, res, callback)`
+`pre(scope)`
 
 `pre` is a preprocessor that is executed at the beginning before any other logic runs. It's a good point to check
 preconditions of your request. For example check if the request is executed by Admin:
 ```
-  pre: function (req, res, callback) {
+  pre: function (scope) {
     // not admin
-    if (!this.isAdmin(req)) {
-      return callback(HTTP_STATUSES.FORBIDDEN.createError());
+    if (!this.isAdmin(scope.req)) {
+      throw HTTP_STATUSES.FORBIDDEN.createError();
     }
-    callback();
   }
 ```
 
+Additionally you can specify `pre`-handler on action level, and it will be ran instead.
+
 #### collectionPost
 
-`collectionPost: function (collection, req, res, callback)`
+`collectionPost(collection, scope)`
 
 When `select` returns any collection from db, this collection is passed through this postprocessor.
 It's a good point if you want to manipulate with the set of items of the collection, but not with items by themselves.
 
+Additionally you can specify `collectionPost`-handler on action level, and it will be ran instead.
+
 #### post
 
-`post: function (resource, req, res, callback)`
+`post(resource, scope)`
 
 `post` is postprocessor. It runs immediately before a resource is sent to an user.
 At this point you can change the resource by itself. For instance, you can fill calculated fields here:
 ```
-  post: function (resource, req, res, callback) {
+  post: function (resource, scope) {
     if (resource.icon) {
       resource.icon_url =
-        req.protocol + "://" + req.get('host') + '/api/resource/' + resource._id + '/icon';
+        scope.req.protocol + "://" + scope.req.get('host') + '/api/resource/' + resource._id + '/icon';
     }
-    callback(null, resource);
+    return resource;
   }
 ```
 
+Additionally you can specify `post`-handler on action level, and it will be ran instead.
+
 #### queryPipe
 
-`queryPipe: function (query, req, res, callback)`
+`queryPipe: function (query, scope)`
 
-You can use `queryPipe` if you need to call additional methods at `mongoose` `query` ([docs](http://mongoosejs.com/docs/queries.html)).
+You can use `queryPipe` if you need to call additional methods at data source `query`
+([docs](http://mongoosejs.com/docs/queries.html)).
 This method is called after all `restifizer` calls are done, but immediately before `exec`.
 
+*TODO Update the section*
 Draw your attention, this method is called in 2 different semantics:
 * in selects - in this case we expect you call `callback`,
 * in IUD-methods - in this case we expect you directly return `query`.
@@ -443,59 +434,58 @@ So, in this example we put `populate` to our query pipe:
 
 #### prepareData
 
-`prepareData: function (req, res, callback)`
+`prepareData: function (scope)`
 
 Prepares data to create new document.
-It's a point you can specify defaults for your resource when `restifizer` creates it. `Callback` reseives 2 params:
- * err - error, or null if there is no error happened,
- * data - object containing default values of resource fields.
+It's a point you can specify defaults for your resource when `restifizer` creates it. Returning promise should contain
+`data` - object containing default values of resource fields.
 
 If you do not specify the handler, `restifizer` uses `{}` to init the object.
 
 
 #### beforeAssignFields
 
-`beforeAssignFields: function (dest, source, req, callback)`
+`beforeAssignFields: function (scope)`
 
 If it's defined, it runs immediately before `assignFields`, and has the same params.
 You can use it to define what the params will be set.
 
 #### beforeSave
 
-`beforeSave: function (doc, req, res, callback)`
+`beforeSave: function (scope)`
 
-Handler, called when you create new resource or change existing instance of your resource after all assignments are already done, but immediately before saving it to your database
+Handler, called when you create new resource or change existing instance of your resource after all assignments are
+already done, but immediately before saving it to your database
 
 #### afterSave
 
-`afterSave: function (doc, req, res, callback)`
+`afterSave: function (scope)`
 
 If it's defined, it runs immediately after `saveDocument`, and has the same params.
 
 #### afterChange
 
-`afterChange: function (doc, req, res, callback)`
+`afterChange: function (scope)`
 
 Very similar to `afterSave`, it calls immediately after it in inserts and updates, but it runs after deletes as well.
 It can be a good point to integrate your kind of `triggerEngine`. For instance, you can define something like that in
 a base controller class of your application:
 ```
-  afterChange: function (doc, req, res, callback) {
-    redisClient.publish(this.ModelClass.modelName + '.' + doc.id, req.restifizer.action);
-    return callback(null, doc);
+  afterChange: function (scope) {
+    redisClient.publish(this.ModelClass.modelName + '.' + scope.model.id, scope.action);
   }
 ```
 After that you will be able to subscribe to those events and handle them in flexible and scalable way.
 
 #### beforeDelete
 
-`beforeDelete: function (doc, req, callback)`
+`beforeDelete: function (scope)`
 
 If it's defined, it runs immediately before removing the document.
 
 #### beforeArrayMethod
 
-`beforeArrayMethod(dest, methodBody, methodName, fieldName, req)`
+`beforeArrayMethod(queryParam, methodName, fieldName, scope)`
 
 If it's defined, it runs immediately before proceeding of array methods.
 
@@ -509,68 +499,62 @@ Here you can specify a way, how exceptions will be converted to response.
 
 ### Methods
 
-#### getContext
-
-`getContext: function (req)`
-
-Returns context of the current request. Context os a place, when you can save any your variable with request's lifecycle.
-
 #### assignFields
 
-`assignFields: function (dest, source, req, callback)`
+`assignFields(scope)`
 
-Assigns all fields from `source` to `dest` according `modelFieldNames`.
+Assigns all fields from `scope.source` to `scope.model`.
 You can fetch any additional data at this point, or completely change the way fields are assigned.
 
-Default implemenation iterates through all the fields, passing them through `assignFilter`, and calling `assignField`. 
+Default implementation iterates through all the fields, passing them through `assignFilter`, and calling `assignField`.
 
 #### assignField
 
-`assignField: function (dest, source, fieldName, req, callback)`
+`assignField(fieldName, scope)`
 
-Assigns single field with name `fieldName` from `source` to `dest`.
+Assigns single field with name fieldName from `scope.source` to `scope.model`.
 At this point you have enough data to deny assigning of exact values to exact fields for instance:
 ```
-var YourController = Restifizer.Controller.extend({
-  assignField: function (dest, source, fieldName, req, callback) {
-    if (fieldName == 'status' && source[fieldName] == STATUSES.RESTRICTED_STATUS) {
-        return callback(HTTP_STATUSES.FORBIDDEN.createError("It's not allowable to set restricted status"));
+class YourController extends Restifizer.Controller {
+  assignField(fieldName, scope) {
+    if (fieldName == 'status' && scope.source[fieldName] == STATUSES.RESTRICTED_STATUS) {
+        throw HTTP_STATUSES.FORBIDDEN.createError('It\'s not allowable to set restricted status');
     }
-    YourController.__super__.assignField.apply(this, arguments); // do not forget to call supper method
+    return super.assignField(fieldName, scope);
   },
-});
+}
 ```
 
 #### assignFilter
 
-`assignFilter: function (dest, source, fieldName, req)`
+`assignFilter(queryParams, fieldName, scope)`
 
 Filters assigning field with name `fieldName`.
 In this method you can synchronously return `true` / `false`, allowing / denying to assign exact fields.
-For example you can silently skip of changing of exact fields for non-admin users:
+For example you can silently skip changing of exact fields for non-admin users:
 ```
-var YourController = Restifizer.Controller.extend({
-  assignFilter: function (dest, source, fieldName, req) {
-    if (fieldName == 'adminOnlyField') {
+class YourController extends Restifizer.Controller {
+  assignFilter(queryParams, fieldName, scope) {
+    if (fieldName === 'adminOnlyField') {
       return this.isAdmin(req);
     }
-    YourController.__super__.assignField.apply(this, arguments);
+    return super.assignField(fieldName, scope);
   },
-});
+}
 ```
 
 #### createDocument
 
-`createDocument: function (data, req, res, callback)`
+`createDocument: function (scope)`
 
-Creates document. It's called when you create new instance of your resource after all assignments are already done,
-but immediately before saving it to your database.
+Create new document instance, called when you create new instance of your resource after all assignments are already
+done, but immediately before saving it to your database.
 
 #### saveDocument
 
-`saveDocument: function (doc, req, res, callback)`
+`saveDocument: function (scope)`
 
-Saves document to db, called in inserts and updates, after `createDocument` or `updateDocument`.
+Saves document to db, called in inserts and updates.
 
 ### restifizerOptions
 

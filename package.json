@@ -1,6 +1,6 @@
 {
   "name": "restifizer",
-  "version": "0.4.21",
+  "version": "0.7.17",
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
@@ -22,11 +22,11 @@
     "nosql"
   ],
   "dependencies": {
-    "bluebird": "^3.0.1",
-    "http-statuses": "~0.1.x",
-    "lodash": "~3.10.1",
-    "restifizer-mongoose-ds": "git+https://github.com/igbasov/restifizer-mongoose-ds.git",
-    "restifizer-sequelize-ds": "git+https://github.com/igbasov/restifizer-sequelize-ds.git"
+    "bluebird": "^3.4.1",
+    "http-statuses": "^0.1.1",
+    "lodash": "^3.10.1",
+    "restifizer-mongoose-ds": "^0.1.5",
+    "restifizer-sequelize-ds": "^0.2.2"
   },
   "author": {
     "name": "Fedor Shubin"

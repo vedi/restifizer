@@ -4,24 +4,35 @@
 
 'use strict';
 
+var _ = require('lodash');
 var Employee = require('../models/employee');
-var BaseController = require('./base');
+var BaseController = require('./base.controller');
 
-module.exports = BaseController.extend({
-    dataSource: {
+class EmployeeInfoController extends BaseController {
+  constructor(options) {
+
+    options = options || {};
+    _.assign(options, {
+      dataSource: {
         type: 'mongoose',
         options: {
-            model: Employee
+          model: Employee
         }
-    },
-    path: '/api/employeesInfo',
-    defaultFields: [
+      },
+      path: '/api/employeesInfo',
+      defaultFields: [
         'name',
         'lastName'
-    ],
-    qFields: [
+      ],
+      qFields: [
         'name',
         'lastName',
         'emails'
-    ]
-});
+      ]
+    });
+
+    super(options);
+  }
+}
+
+module.exports = EmployeeInfoController;
