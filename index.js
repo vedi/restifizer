@@ -2,16 +2,16 @@
 
 var _ = require('lodash');
 var RestifizerController = require('./lib/controller');
+var ExpressTransport = require('./lib/transports/express.transport');
 var config = require('./lib/config');
 
 
 class Restifizer {
-  constructor(app, options) {
+  constructor(options) {
     if (!(this instanceof Restifizer)) {
       return new Restifizer(app, options);
     }
 
-    this.app = app;
     this.restifizerOptions = options || {};
     if (!this.restifizerOptions.config) {
       this.restifizerOptions.config = config;
@@ -28,7 +28,7 @@ class Restifizer {
   };
 
   bind(controller) {
-    controller.bind(this.app);
+    controller.bind();
     return this;
   };
 
@@ -36,5 +36,6 @@ class Restifizer {
 
 
 Restifizer.Controller = RestifizerController;
+Restifizer.ExpressTransport = ExpressTransport;
 
 module.exports = Restifizer;
