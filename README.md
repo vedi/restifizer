@@ -9,18 +9,24 @@
 Restifizer
 ==========
 
-Restifizer - it's a way to significantly simplify creation of full-functional RESTful services. Access to the data is carried out via plug-in data sources: [restifizer-mongoose-ds](https://github.com/vedi/restifizer-mongoose-ds) and [restifizer-sequelize-ds](https://github.com/vedi/restifizer-sequelize-ds).
-The data source modules are designed on top of the [Mongoose](http://mongoosejs.com/) and the [Sequelize](http://docs.sequelizejs.com/en/latest/) respectively, which allows us to use such databases as the [MongoDB](www.mongodb.org), [MSSQL](http://www.microsoft.com/en-us/server-cloud/products/sql-server/), [MySQL](www.mysql.com), [MariaDB](mariadb.org), [PostgreSQL](http://www.postgresql.org/) and [SQLite](www.sqlite.org).
+Restifizer - it's a way to significantly simplify creation of full-functional RESTful services. Access to the data is
+carried out via plug-in data sources: [restifizer-mongoose-ds](https://github.com/vedi/restifizer-mongoose-ds) and
+[restifizer-sequelize-ds](https://github.com/vedi/restifizer-sequelize-ds).
+The data source modules are designed on top of the [Mongoose](http://mongoosejs.com/) and the
+[Sequelize](http://docs.sequelizejs.com/en/latest/) respectively, which allows us to use such databases as the
+[MongoDB](www.mongodb.org), [MSSQL](http://www.microsoft.com/en-us/server-cloud/products/sql-server/),
+[MySQL](www.mysql.com), [MariaDB](mariadb.org), [PostgreSQL](http://www.postgresql.org/) and [SQLite](www.sqlite.org).
 
-The key feature of the `restifizer` - it's very coupled to Mongoose and Sequelize ORM-s as result it allows to make prototyping of the services as soon as it's possible. 
-Wide list of the features of this ORM-s (and we working hard to extend it) becomes available in your server out of the box.
+The key feature of the `restifizer` - it's coupled to supported ORMs as result it allows to make implementing of the
+services as soon as it's possible.
+Wide list of the features of these ORMs becomes available in your server out of the box.
 There is a list of some of these features:
  * querying engine - it literally means you can define MongoDB/Sequelize queries in your http-requests,
  * nested objects and arrays - since resources are just MongoDB docs, you can easily use any nested structures supported,
  * data population - you can easily define what the additional data should fetched and populated (JOIN) in your resource.
 
-> Such features on one hand allow your service to be developed extremely fast, but on other hand you always should remember, 
-you need to solve all possible performance impacts before coming production.
+> Such features on one hand allow your service to be developed extremely fast, but on other hand you always should
+remember, you need to solve all possible performance impacts before coming production.
 For example you should allow filtering by indexed fields only. By default it's allowed for each ones.
 
 ## Resources
@@ -29,7 +35,7 @@ It's a core of RESTful services. Resources are available at a specific path on t
 
 ## Supported HTTP methods
 
-In the best traditions of REST-genre the most of the actions with resource can be "expresed" with http-methods. 
+In the best traditions of REST-genre the most of the actions with resource can be "expressed" with http-methods.
 `restifizer` supports following methods:
  * GET - selects a set of resources or a resource if a key is specified,
  * HEAD - retrieve all resources or a resource if a key is specified in a collection (header only),
@@ -38,7 +44,8 @@ In the best traditions of REST-genre the most of the actions with resource can b
  * PATCH - updates fields of existing instance of resource with values provided in request,
  * DELETE - removes existing instance of resource from the server. 
 
-> I use `httpie` (https://github.com/jakubroztocil/httpie) as a command line tool to test the servers. You can use any, but all the examples were created with syntax of `httpie`. Anyway it's recognizable.
+> I use `httpie` (https://github.com/jakubroztocil/httpie) as a command line tool to test the servers. You can use any,
+but all the examples were created with syntax of `httpie`. Anyway it's recognizable.
 
 ### GET (select, selectOne)
 
@@ -51,7 +58,8 @@ Get resource (selectOne) - retrieve a single resource with specified <id>
 http GET <serverURL>/api/<collection>/<id>
 ```
 
-`restifizer` allows to get the list of resources according provided criteria. If no criteria provided, it return the first page of `maxPageSize` with all available fields.
+`restifizer` allows to get the list of resources according provided criteria. If no criteria provided, it return the
+first page of `maxPageSize` with all available fields.
 
 Example:
 ```
@@ -70,7 +78,7 @@ It's json value containing any valid MongoDB query. See [docs](http://docs.mongo
 
 Example:
 ```
-http GET localhost:3000/api/users?filter={"sex": "M", "age": { "$gt": 18 }}
+http GET localhost:3000/api/users?filter={"gender": "M", "age": { "$gt": 18 }}
 ```
 You can use regex values in filter. As we pass JSON in this param it's not possible to use regular expression objects (/pattern/).
 You should replace it with `$regex` operator. See [docs](http://docs.mongodb.org/manual/reference/operator/query/regex/) for details.
@@ -81,7 +89,7 @@ Comma separated list of field names.
 
 Example:
 ```
-http GET localhost:3000/api/users?fields=sex,age
+http GET localhost:3000/api/users?fields=gender,age
 ```
 
 ###### orderBy
@@ -129,7 +137,10 @@ Comma separated list of field names.
 
 ###### filter
 
-In order to filter records to fetch from the server you can specify `filter` param in URL of your request. It's json value containing any valid [sequelize.js](http://docs.sequelizejs.com/en/latest/docs/querying/) query. Besides simple filtering by values it supports additional operators, which allow to build more complex query to the server. See [docs](http://docs.sequelizejs.com/en/latest/docs/querying/) for more details. 
+In order to filter records to fetch from the server you can specify `filter` param in URL of your request. It's json
+value containing any valid [sequelize.js](http://docs.sequelizejs.com/en/latest/docs/querying/) query. Besides simple
+filtering by values it supports additional operators, which allow to build more complex query to the server. See
+[docs](http://docs.sequelizejs.com/en/latest/docs/querying/) for more details.
 
 Example:
 ```
@@ -138,7 +149,8 @@ http GET localhost:3000/api/users?filter={"gender": "M", "age": { "$gt": 18}, "n
 
 ###### perPage
 
-Every fetching request returns only one page of data. You can change default page size providing `perPage` param in URL. Default value of the page is 25, and the maximum page size limited by 100.
+Every fetching request returns only one page of data. You can change default page size providing `perPage` param in URL.
+Default value of the page is 25, and the maximum page size limited by 100.
 
 ###### page
 
@@ -146,7 +158,8 @@ The `page` param allows you to specify page number to fetch. The page numeration
 
 ###### orderBy
 
-For ordering the records you should use `orderBy` param in URL. It should be a valid JSON, containing field names as keys, and 1 or -1 as values depending on a way to sort (ASC or DESC).
+For ordering the records you should use `orderBy` param in URL. It should be a valid JSON, containing field names as
+keys, and 1 or -1 as values depending on a way to sort (ASC or DESC).
 
 
 ### POST (insert)
@@ -220,7 +233,7 @@ It's json value containing any valid MongoDB query. See [docs](http://docs.mongo
 
 Example:
 ```
-{"sex": "M", age: { $gt: 18 } }}
+{"gender": "M", age: { $gt: 18 } }}
 ```
 
 ## Response status
@@ -246,34 +259,64 @@ Controllers are the way to provide needed configuration for your resource and to
 
 #### dataSource
 
-This param is a way to specify, what data source will be used. Today available [restifizer-mongoose-ds](https://github.com/vedi/restifizer-mongoose-ds) and [restifizer-sequelize-ds](https://github.com/vedi/restifizer-sequelize-ds) modules.
-Any resource is bound to mongoose/sequelize model, and this param is a way to specify, what the model your resource uses.
+This param is a way to specify, what data source will be used. Today available
+[restifizer-mongoose-ds](https://github.com/vedi/restifizer-mongoose-ds) and
+[restifizer-sequelize-ds](https://github.com/vedi/restifizer-sequelize-ds) modules.
+Any resource is bound to mongoose/sequelize model, and this param is a way to specify, what the model your resource
+uses.
+
+> TODO: Put details about transport
 
 Example (mongoose):
 ```
-var Restifizer = require('restifizer');
-var MongooseDataSource = require('restifizer-mongoose-ds');
-var User = require('MongooseUserModel');
+const Restifizer = require('restifizer');
+const User = require('MongooseUserModel');
 
-var UserController = Restifizer.Controller.extend({
-  dataSource: new MongooseDataSource(User),
-  path: '/api/users',
+class UserController extends Restifizer.Controller {
+  constructor(options) {
+
+    let publicFields = ['firstName', 'lastName', 'thumbnailUrl'];
+
+    options = options || {};
+    Object.assign(options, {
+      dataSource: {
+        type: 'mongoose',
+        options: {
+          model: User
+        }
+      },
+      path: '/api/users'
+    });
+
+    super(options);
   ...
 });
 ```
 
 Example (sequelize):
 ```
-var Restifizer = require('restifizer');
-var SequelizeDataSource = require('restifizer-sequelize-ds');
-var User = require('SequelizeUserModel');
+const Restifizer = require('restifizer');
+const User = require('SequelizeUserModel');
 
-var UserController = Restifizer.Controller.extend({
-  dataSource: new SequelizeDataSource(User),
-  path: '/api/users',
+class UserController extends Restifizer.Controller {
+  constructor(options) {
+
+    let publicFields = ['firstName', 'lastName', 'thumbnailUrl'];
+
+    options = options || {};
+    Object.assign(options, {
+      dataSource: {
+        type: 'sequelize',
+        options: {
+          model: User
+        }
+      },
+      path: '/api/users'
+    });
+
+    super(options);
   ...
 });
-
 ```
 
 #### path
@@ -352,7 +395,8 @@ default ->
 
 > TODO: Change example
 
-For example if you want to define `pre` processor for insert, update, partialUpdate, delete that's enough to define it in your `insert`:
+For example if you want to define `pre` processor for insert, update, partialUpdate, delete that's enough to define it
+in your `insert`:
 ```
 var YourController = Restifizer.Controller.extend({
   ...
