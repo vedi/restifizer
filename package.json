@@ -28,7 +28,7 @@
     "bluebird": "^3.4.1",
     "http-statuses": "^0.1.1",
     "lodash": "^3.10.1",
-    "restifizer-mongoose-ds": "^0.1.6",
+    "restifizer-mongoose-ds": "git://github.com/vedi/restifizer-mongoose-ds.git#f8d075fa19080ff4cfa41c222437ce22e0159c94",
     "restifizer-sequelize-ds": "^0.2.2"
   },
   "author": {
