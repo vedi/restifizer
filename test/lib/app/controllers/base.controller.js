@@ -1,18 +1,18 @@
 'use strict';
 
-var _ = require('lodash');
+const _ = require('lodash');
 
-var Restifizer = require('../../../../index.js');
+const Restifizer = require('../../../../index.js');
 
 class BaseController extends Restifizer.Controller {
   constructor(options) {
-    let defaultAction = {
-      'default': {
-        enabled: true
-      }
+    const defaultAction = {
+      default: {
+        enabled: true,
+      },
     };
 
-    options = options || {actions: defaultAction};
+    options = options || { actions: defaultAction };
     options.actions = options.actions || defaultAction;
 
     super(options);

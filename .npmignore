@@ -12,6 +12,8 @@ pids
 logs
 results
 
+.eslintrc.js
+
 npm-debug.log
 node_modules
 coverage

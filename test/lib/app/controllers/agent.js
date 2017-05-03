@@ -1,22 +1,22 @@
 /**
  * Created by igor on 20.10.15.
  */
+
 'use strict';
 
-var _ = require('lodash');
-var Agent = require('../models/agent');
-var BaseController = require('./base.controller');
+const _ = require('lodash');
+const Agent = require('../models/agent');
+const BaseController = require('./base.controller');
 
 class AgentController extends BaseController {
   constructor(options) {
-
     options = options || {};
     _.assign(options, {
       dataSource: {
         type: 'mongoose',
         options: {
-          model: Agent
-        }
+          model: Agent,
+        },
       },
       path: '/api/agents',
       fields: [
@@ -24,15 +24,15 @@ class AgentController extends BaseController {
         'lastName',
         'phones',
         'emails',
-        'actionsCheck'
+        'actionsCheck',
       ],
       qFields: [
         '_id',
         'name',
         'lastName',
-        'emails'
+        'emails',
       ],
-      post: function (model, scope) {
+      post(model, scope) {
         model.actionsCheck = {
           isSelect: scope.isSelect(),
           isChanging: scope.isChanging(),
@@ -41,13 +41,13 @@ class AgentController extends BaseController {
           isDelete: scope.isDelete(),
           isSelectOne: scope.isSelectOne(),
           isReplace: scope.isReplace(),
-          isCount: scope.isCount()
+          isCount: scope.isCount(),
         };
 
         return model;
-      }
+      },
     });
-    
+
     super(options);
   }
 }

@@ -1,20 +1,19 @@
 'use strict';
 
-var _ = require('lodash');
+const _ = require('lodash');
 
-var Employee = require('../models/employee');
-var BaseController = require('./base.controller');
+const Employee = require('../models/employee');
+const BaseController = require('./base.controller');
 
 class EmployeeController extends BaseController {
   constructor(options) {
-
     options = options || {};
     _.assign(options, {
       dataSource: {
         type: 'mongoose',
         options: {
-          model: Employee
-        }
+          model: Employee,
+        },
       },
       path: '/api/employees',
       fields: [
@@ -23,13 +22,13 @@ class EmployeeController extends BaseController {
         'phones',
         'emails',
         'hiredAt',
-        'firedAt'
+        'firedAt',
       ],
       qFields: [
         'name',
         'lastName',
-        'emails'
-      ]
+        'emails',
+      ],
     });
 
     super(options);

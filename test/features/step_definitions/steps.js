@@ -1,18 +1,18 @@
 'use strict';
 
-var Bb = require('bluebird');
-var expect = require('chai').expect;
-var resolveProp = require('../../lib/prop-util').resolveProp;
+const Bb = require('bluebird');
+const expect = require('chai').expect;
+const resolveProp = require('../../lib/prop-util').resolveProp;
 
 module.exports = function () {
-  //Send request
+  // Send request
   this.When(/^I send (targeted )?(get|post|put|patch|delete) request to ([^\s]+)$/, function (isTargeted, method, resourceName, callback) {
-    var _this = this;
-    Bb.try(function () {
-      var path = '/api/' + resourceName;
+    const _this = this;
+    Bb.try(() => {
+      let path = `/api/${resourceName}`;
 
       if (isTargeted) {
-        path += '/' + (_this.data._id ? _this.data._id : _this.data.id);
+        path += `/${_this.data._id ? _this.data._id : _this.data.id}`;
       }
       switch (method) {
         case 'get':
@@ -26,10 +26,10 @@ module.exports = function () {
         case 'delete':
           return _this.restClient.delPromise(path);
         default:
-          throw new Error("Unknown method: " + method);
+          throw new Error(`Unknown method: ${method}`);
       }
     })
-      .then(function (res) {
+      .then((res) => {
         _this.res = res;
         _this.body = res.body;
       })
@@ -37,16 +37,16 @@ module.exports = function () {
       .catch(callback.fail);
   });
 
-  //Response status
+  // Response status
   this.Then(/^I should get (success|fail) with code ([\d]*)$/, function (flag, code, callback) {
     expect(parseInt(code)).to.be.equal(this.res.statusCode);
     callback();
   });
 
-  //Response data analize
+  // Response data analize
   this.Then(/^I get "([^"]*)" with( strict)? value "([^"]*)" in response$/, function (key, strict, value, callback) {
     if (key !== 'undefined') {
-      var resolvedProp = resolveProp(this.body, key);
+      const resolvedProp = resolveProp(this.body, key);
 
       if (strict) {
         expect(resolvedProp).to.be.equal(value);
@@ -57,8 +57,8 @@ module.exports = function () {
     callback();
   });
   this.Then(/^I get "([^"]*)" with value equals to ([^\s]+) in response$/, function (key, source, callback) {
-    var resolvedResponse = resolveProp(this.body, key);
-    var resolvedSource = resolveProp(this.dataSource, source);
+    const resolvedResponse = resolveProp(this.body, key);
+    const resolvedSource = resolveProp(this.dataSource, source);
     expect(resolvedResponse).to.be.equal(resolvedSource);
     callback();
   });
@@ -79,7 +79,7 @@ module.exports = function () {
     callback();
   });
 
-  //Set request parameter(s) value(s).
+  // Set request parameter(s) value(s).
   this.When(/^I put "([^"]*)" with value "([^"]*)" to request$/, function (key, value, callback) {
     if (key) {
       this.putData(key, value);

@@ -1,22 +1,22 @@
 /**
  * Created by igor on 20.10.15.
  */
+
 'use strict';
 
-var _ = require('lodash');
-var Mission = require('../models/mission');
-var BaseController = require('./base.controller');
+const _ = require('lodash');
+const Mission = require('../models/mission');
+const BaseController = require('./base.controller');
 
 class MissionController extends BaseController {
   constructor(options) {
-
     options = options || {};
     _.assign(options, {
       dataSource: {
         type: 'mongoose',
         options: {
-          model: Mission
-        }
+          model: Mission,
+        },
       },
       path: '/api/missions',
       fields: [
@@ -24,13 +24,13 @@ class MissionController extends BaseController {
         'description',
         {
           name: 'agent',
-          fields: ['name']
-        }
+          fields: ['name'],
+        },
       ],
       qFields: [
         '_id',
-        'description'
-      ]
+        'description',
+      ],
     });
 
     super(options);
