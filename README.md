@@ -614,10 +614,14 @@ This value restricts maximum value of `per_page`/`perPage` supported with your a
 
 ### Testing
 
-Run MongoDB server on the local machine on port 27017 or change connection string for test application (path '`<restifizerDir>/test/lib/app/config/index.js`'). 
-Create `restifizerTest` database at MySQL server and change settings for `sequelize` migration (path `'<restifizerDir>/test/lib/app/config/config.json'`).
+The module uses e2e tests. In order to run them you should start the testing server:
+```bash
+npm run express
+```
 
-Then run
+Then run:
 ```bash
 $ npm test
 ```
+
+The test suite will be run and you'll see the results in console.
