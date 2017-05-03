@@ -1,7 +1,7 @@
 'use strict';
 
-var dataSource = require('../../lib/dal/index');
-var _ = require('lodash');
+const dataSource = require('../../lib/dal/index');
+const _ = require('lodash');
 
 function World() {
   this.dataSource = dataSource;
@@ -15,11 +15,11 @@ function World() {
   };
 
   this.putDataFromObject = function (dataObject) {
-    var _this = this;
+    const _this = this;
     if (!this.data) {
       this.data = {};
     }
-    _.forOwn(dataObject, function (value, key) {
+    _.forOwn(dataObject, (value, key) => {
       _this.data[key] = value;
     });
   };
@@ -33,7 +33,7 @@ function World() {
 
   this.addQueryStringToPath = function (path) {
     if (this.queryString && this.queryString.length) {
-      return path + '?' + this.queryString.join('&');
+      return `${path}?${this.queryString.join('&')}`;
     }
     return path;
   };

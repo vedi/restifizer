@@ -1,6 +1,6 @@
 'use strict';
 
-var request = require('../../lib/promised-supertester');
+const request = require('../../lib/promised-supertester');
 
 module.exports = function () {
   this.Before(function () {

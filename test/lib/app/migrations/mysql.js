@@ -1,27 +1,27 @@
 'use strict';
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     queryInterface.createTable(
       'Contacts',
       {
         id: {
           type: Sequelize.INTEGER,
-          primaryKey: true
+          primaryKey: true,
         },
         username: Sequelize.STRING,
         name: Sequelize.STRING,
         lastname: Sequelize.STRING,
         updatedAt: Sequelize.DATE,
-        createdAt: Sequelize.DATE
+        createdAt: Sequelize.DATE,
       },
       {
-        /*engine: 'InnoDB',
+        /* engine: 'InnoDB',
          charset: 'utf8'*/
       }
     );
   },
-  down: function (queryInterface, Sequelize) {
+  down(queryInterface, Sequelize) {
     return queryInterface.dropAllTables();
-  }
+  },
 };

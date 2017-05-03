@@ -1,12 +1,12 @@
 'use strict';
 
-var Promise = require('bluebird');
-var request = require('./supertester');
+const Promise = require('bluebird');
+const request = require('./supertester');
 
-var errHandler = function (err, res) {
+const errHandler = function (err, res) {
   if (err) throw err;
 };
-var cbWrapper = function (callback) {
+const cbWrapper = function (callback) {
   return function (res) {
     callback(null, res);
   };
@@ -14,29 +14,29 @@ var cbWrapper = function (callback) {
 
 
 module.exports = {
-  getPromise: function (path) {
-    return Promise.fromNode(function (callback) {
+  getPromise(path) {
+    return Promise.fromNode((callback) => {
       request.get(path).expect(cbWrapper(callback)).end(errHandler);
     });
   },
-  postPromise: function (path, data) {
-    return Promise.fromNode(function (callback) {
+  postPromise(path, data) {
+    return Promise.fromNode((callback) => {
       request.post(path).send(data).expect(cbWrapper(callback)).end(errHandler);
     });
   },
-  putPromise: function (path, data) {
-    return Promise.fromNode(function (callback) {
+  putPromise(path, data) {
+    return Promise.fromNode((callback) => {
       request.put(path).send(data).expect(cbWrapper(callback)).end(errHandler);
     });
   },
-  patchPromise: function (path, data) {
-    return Promise.fromNode(function (callback) {
+  patchPromise(path, data) {
+    return Promise.fromNode((callback) => {
       request.patch(path).send(data).expect(cbWrapper(callback)).end(errHandler);
     });
   },
-  delPromise: function (path) {
-    return Promise.fromNode(function (callback) {
+  delPromise(path) {
+    return Promise.fromNode((callback) => {
       request.del(path).expect(cbWrapper(callback)).end(errHandler);
     });
-  }
+  },
 };

@@ -1,31 +1,30 @@
 'use strict';
 
-var _ = require('lodash');
-var BaseController = require('./base.controller');
-var Contact = require('../models/contact');
+const _ = require('lodash');
+const BaseController = require('./base.controller');
+const Contact = require('../models/contact');
 
 class ContactController extends BaseController {
   constructor(options) {
-
     options = options || {};
     _.assign(options, {
       dataSource: {
         type: 'sequelize',
         options: {
-          model: Contact
-        }
+          model: Contact,
+        },
       },
       path: '/api/contacts',
       fields: [
         'id',
         'username',
         'name',
-        'lastName'
+        'lastName',
       ],
       qFields: [
         'name',
-        'lastName'
-      ]
+        'lastName',
+      ],
     });
 
     super(options);
