@@ -4,10 +4,7 @@
   "description": "Restful database-agnostic service",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-migrate && npm run test-cucumber ; npm run test-migrate-undo",
-    "test-cucumber": "istanbul cover cucumber.js ./test",
-    "test-migrate": "cd ./test/lib/app/ && sequelize db:migrate",
-    "test-migrate-undo": "cd ./test/lib/app/ && sequelize db:migrate:undo && echo 'migration:undo completed'"
+    "test": "node tools/test.js"
   },
   "repository": {
     "type": "git",
@@ -51,9 +48,9 @@
   "devDependencies": {
     "body-parser": "~1.9.0",
     "chai": "^3.2.0",
-    "cucumber": "^1.2.0",
     "express": "~4.9.5",
     "istanbul": "^0.4.0",
+    "mocha": "^3.0.2",
     "mongoose": "^4.1.9",
     "mysql": "^2.9.0",
     "sequelize": "^3.11.0",
