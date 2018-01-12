@@ -336,6 +336,10 @@ and in the case if an user requests data at `/api/users/543d2605e21f85d73b060979
 By default all the fields you defined in your model schema (without fields with name starting from "__") are available in your resource.
 Providing this params are you able exclude some fields from the resource, or add new calculated fields.
 
+#### restrictFields
+
+If `true`, restricts returned and saved fields with `fields` array. Default value is `true`.
+
 #### idField
 
 Name of id field. By default: '_id'. This value is used in route params for selectOne, replace, update, delete.

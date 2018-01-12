@@ -27,7 +27,7 @@
     "bluebird": "^3.5.0",
     "http-statuses": "^0.2.0",
     "lodash": "^4.17.4",
-    "restifizer-mongoose-ds": "^0.1.10",
+    "restifizer-mongoose-ds": "^0.1.12",
     "restifizer-sequelize-ds": "^0.2.4"
   },
   "author": {
