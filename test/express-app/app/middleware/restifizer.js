@@ -6,7 +6,7 @@
 
 const Restifizer = require('../../../..');
 
-const ExpressTransport = Restifizer.ExpressTransport;
+const { ExpressTransport } = Restifizer;
 
 module.exports = (app) => {
   const transport = new ExpressTransport({
@@ -16,6 +16,6 @@ module.exports = (app) => {
     transports: [transport],
   });
 
-// eslint-disable-next-line global-require
+  // eslint-disable-next-line global-require
   restifizer.addController(require('../controllers/user.controller'));
 };

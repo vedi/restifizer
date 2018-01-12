@@ -18,5 +18,5 @@ mocha.addFile(path.join(__dirname, 'spec/user.spec.js'));
 
 // Run the tests.
 mocha.run((failures) => {
-  process.exit(failures);  // exit with non-zero status if there were failures
+  process.exit(failures); // exit with non-zero status if there were failures
 });

@@ -9,7 +9,7 @@ const chakram = require('chakram');
 const config = require('../config');
 const specHelper = require('../spec-helper');
 
-const expect = chakram.expect;
+const { expect } = chakram;
 
 describe('User profile', () => {
   const user = specHelper.getFixture(specHelper.FIXTURE_TYPES.USER);
@@ -18,10 +18,10 @@ describe('User profile', () => {
     let response;
 
     before('send post', () => chakram
-        .post(`${config.baseUrl}/api/users`, user)
-        .then((result) => {
-          response = result;
-        }));
+      .post(`${config.baseUrl}/api/users`, user)
+      .then((result) => {
+        response = result;
+      }));
 
     it('should return status 201', () => expect(response).to.have.status(201));
 
@@ -35,10 +35,10 @@ describe('User profile', () => {
     let response;
 
     before('send request', () => chakram
-        .get(`${config.baseUrl}/api/users`, {})
-        .then((result) => {
-          response = result;
-        }));
+      .get(`${config.baseUrl}/api/users`, {})
+      .then((result) => {
+        response = result;
+      }));
 
     it('should return status 200', () => {
       expect(response).to.have.status(200);
@@ -49,10 +49,10 @@ describe('User profile', () => {
     let response;
 
     before('send request', () => chakram
-        .get(`${config.baseUrl}/api/users/${user._id}`, {})
-        .then((result) => {
-          response = result;
-        }));
+      .get(`${config.baseUrl}/api/users/${user._id}`, {})
+      .then((result) => {
+        response = result;
+      }));
 
     it('should return status 200', () => {
       expect(response).to.have.status(200);
@@ -73,13 +73,16 @@ describe('User profile', () => {
     let response;
 
     before('send request', () => chakram
-        .patch(`${config.baseUrl}/api/users/${user._id}`,
-      {
-        username: NEW_VALUE,
-      }, {})
-        .then((result) => {
-          response = result;
-        }));
+      .patch(
+        `${config.baseUrl}/api/users/${user._id}`,
+        {
+          username: NEW_VALUE,
+        },
+        {},
+      )
+      .then((result) => {
+        response = result;
+      }));
 
     it('should return status 200', () => {
       expect(response).to.have.status(200);
@@ -94,10 +97,10 @@ describe('User profile', () => {
     let response;
 
     before('send request', () => chakram
-        .delete(`${config.baseUrl}/api/users/${user._id}`, {}, {})
-        .then((result) => {
-          response = result;
-        }));
+      .delete(`${config.baseUrl}/api/users/${user._id}`, {}, {})
+      .then((result) => {
+        response = result;
+      }));
 
     it('should return status 204', () => {
       expect(response).to.have.status(204);

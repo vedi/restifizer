@@ -93,7 +93,6 @@ const specHelper = {
 };
 
 before(() => Bb
-  .join(
-  ));
+  .join());
 
 module.exports = specHelper;
