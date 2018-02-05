@@ -336,6 +336,10 @@ and in the case if an user requests data at `/api/users/543d2605e21f85d73b060979
 By default all the fields you defined in your model schema (without fields with name starting from "__") are available in your resource.
 Providing this params are you able exclude some fields from the resource, or add new calculated fields.
 
+#### restrictFields
+
+If `true`, restricts returned and saved fields with `fields` array. Default value is `true`.
+
 #### idField
 
 Name of id field. By default: '_id'. This value is used in route params for selectOne, replace, update, delete.
@@ -614,10 +618,14 @@ This value restricts maximum value of `per_page`/`perPage` supported with your a
 
 ### Testing
 
-Run MongoDB server on the local machine on port 27017 or change connection string for test application (path '`<restifizerDir>/test/lib/app/config/index.js`'). 
-Create `restifizerTest` database at MySQL server and change settings for `sequelize` migration (path `'<restifizerDir>/test/lib/app/config/config.json'`).
+The module uses e2e tests. In order to run them you should start the testing server:
+```bash
+npm run express
+```
 
-Then run
+Then run:
 ```bash
 $ npm test
 ```
+
+The test suite will be run and you'll see the results in console.
