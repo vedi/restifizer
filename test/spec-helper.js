@@ -34,14 +34,13 @@ const specHelper = {
     return this.request('DELETE', uri, body, options);
   },
   request(method, uri, body, options) {
-    options = Object.assign({
-      method,
+    options = { method,
       uri,
       body,
       resolveWithFullResponse: true,
       // simple: false,
       json: true,
-    }, options);
+      ...options };
 
     return request(options);
   },
@@ -56,7 +55,7 @@ const specHelper = {
         throw new Error(`Wrong seed value: ${seed}`);
       }
 
-      return Object.assign({}, fixtureProvider[seed]);
+      return { ...fixtureProvider[seed] };
     } else if (_.isFunction(fixtureProvider)) {
       seed = seed || Math.floor(Math.random() * 1000000);
       return fixtureProvider(seed);
@@ -88,7 +87,7 @@ const specHelper = {
   removeUser(data) {
     return this
       .delete(`${testConfig.baseUrl}/api/users/${data._id}`, {})
-      .then(result => result.body);
+      .then((result) => result.body);
   },
 };
 

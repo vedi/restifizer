@@ -4,7 +4,7 @@
 
 'use strict';
 
-module.exports = seed => (
+module.exports = (seed) => (
   {
     username: `fakeUsername${seed}`,
     password: `password${seed}`,

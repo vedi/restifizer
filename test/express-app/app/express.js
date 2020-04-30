@@ -1,5 +1,6 @@
 'use strict';
 
+// eslint-disable-next-line import/no-self-import
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
