@@ -5,7 +5,6 @@
 'use strict';
 
 const _ = require('lodash');
-const Bb = require('bluebird');
 const request = require('request-promise');
 
 const testConfig = require('./config');
@@ -91,7 +90,6 @@ const specHelper = {
   },
 };
 
-before(() => Bb
-  .join());
+before(() => {});
 
 module.exports = specHelper;
