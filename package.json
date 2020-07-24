@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "http-statuses": "^0.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "restifizer-mongoose-ds": "^0.1.13",
     "restifizer-sequelize-ds": "^0.2.5"
   },
