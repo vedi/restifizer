@@ -12,6 +12,7 @@ pids
 logs
 results
 
+.eslintignore
 .eslintrc.js
 
 npm-debug.log
