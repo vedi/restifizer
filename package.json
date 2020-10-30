@@ -25,9 +25,7 @@
   ],
   "dependencies": {
     "http-statuses": "^0.2.0",
-    "lodash": "^4.17.19",
-    "restifizer-mongoose-ds": "^0.1.13",
-    "restifizer-sequelize-ds": "^0.2.5"
+    "lodash": "^4.17.19"
   },
   "author": {
     "name": "Fedor Shubin"
@@ -59,6 +57,8 @@
     "mocha": "^7.1.2",
     "morgan": "~1.10.0",
     "request": "^2.87.0",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "restifizer-mongoose-ds": "^0.1.14",
+    "restifizer-sequelize-ds": "^0.2.5"
   }
 }
